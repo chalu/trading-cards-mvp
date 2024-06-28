@@ -1,0 +1,25 @@
+{
+  "name": "trading-cards-mvp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "pnpm -r run lint",
+    "clean": "pnpm -r run clean",
+    "start": "pnpm --stream -r start",
+    "build": "pnpm --stream -r run build",
+    "build:dev": "pnpm --parallel --stream -r run build:dev",
+    "start:dev": "pnpm --parallel --stream -r run start:dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@parcel/transformer-sass": "2.12.0",
+    "@tsconfig/strictest": "^2.0.4",
+    "tsup": "^8.0.2",
+    "typescript": "^5.5.2",
+    "xo": "^0.58.0"
+  },
+  "packageManager": "pnpm@9.0.6+sha256.0624e30eff866cdeb363b15061bdb7fd9425b17bc1bb42c22f5f4efdea21f6b3"
+}

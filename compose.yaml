@@ -1,0 +1,25 @@
+
+services:
+  db:
+    image: postgres:16.2
+    restart: always
+    container_name: cards-mvp-db
+    user: postgres
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      # - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=cards-mvp
+      - POSTGRES_PASSWORD=password
+    volumes:
+      # - ./db-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  db-data:
+    driver: local

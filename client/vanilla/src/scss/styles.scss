@@ -1,0 +1,55 @@
+@import "bootstrap/scss/bootstrap";
+
+nav.navbar a.icon-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+#results {
+    margin-bottom: 3em;
+}
+
+#pager ul.pagination {
+    margin: 0.5em auto;
+}
+
+.lead .text-bg-warning.p-1 {
+    transform: skewY(-3deg);
+    display: inline-block;
+    font-weight: bold;
+}
+
+.card,
+.card img.card-img-top {
+    min-width: 200px;
+}
+
+.card .icon-link {
+    display: inline-block;
+}
+
+.card .icon-link svg {
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+
+.card .icon-link.icon-link-hover:hover {
+    transform: scaleX(.9) scaleY(.9);
+}
+
+#favslist:empty {
+    background-color: #f2f1f1;
+}
+
+#favslist:empty::before {
+    content: "Favs Will Show Up Here!";
+}
+
+#favslist a.icon-link {
+    color: #333;
+}
+
+#favslist a.icon-link svg {
+    fill: red;
+}

@@ -1,0 +1,18 @@
+{
+    "rest-client.environmentVariables": {
+        "$shared": {},
+        "LOCAL": {
+            "tcMvpApiBase": "http://localhost:8889"
+        }
+    },
+
+    "rest-client.defaultHeaders": {
+        "User-Agent": "vscode-restclient",
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    },
+    "yaml.completion": true,
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/stepci/stepci/main/schema.json": "*.stepci.yml"
+    }
+}

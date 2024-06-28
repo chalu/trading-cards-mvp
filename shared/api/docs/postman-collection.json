@@ -1,0 +1,997 @@
+{
+    "item": [
+        {
+            "name": "Search",
+            "description": "Search trading game cards",
+            "item": [
+                {
+                    "id": "7fc1f650-9876-4e66-8246-9dacb10d7ebd",
+                    "name": "API Home",
+                    "request": {
+                        "name": "API Home",
+                        "description": {
+                            "content": "The home endpoint for this API. Displays basic informational message",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                ""
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "5cf8adcc-2ed0-42dc-8cac-b25596dd45ab",
+                            "name": "A basic informational message about the search cards API",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        ""
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "953cbb68-9da1-426b-b565-624ae7d361db",
+                            "name": "bad request error",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        ""
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "1c4ec44d-c46e-4edd-982e-825d2c92a529",
+                            "name": "client issued too many requests within the alloted time",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        ""
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Too Many Requests",
+                            "code": 429,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "32fd5f5a-4524-4fe9-866d-91e6c16a1309",
+                            "name": "backend server error",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        ""
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "1d926bb6-1c60-4095-bbc7-08a2a48b0b07",
+                    "name": "List Cards",
+                    "request": {
+                        "name": "List Cards",
+                        "description": {
+                            "content": "Search for, and list trading game cards that match a search term",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "search"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "(Required) The search term to find cards with",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "term",
+                                    "value": "<string>"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "On what property to order the matching cards. Default is `name`",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "orderby",
+                                    "value": "name"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "The sort order of the returned cards. Default is `AUTO` Sort order:\n  * `ASC` - Ascending, from A to Z\n  * `DESC` - Descending, from Z to A\n  * `AUTO` - Allow the system choose the most inuitive direction to sort.\n",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "sortdir",
+                                    "value": "AUTO"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "The page of the matching resultset to return. Default is `1`.",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "page",
+                                    "value": "1"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "c2fb1126-56dc-453e-91e8-bcfb5ecc7e5e",
+                            "name": "A paged list of cards matching the search term",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "search"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) The search term to find cards with",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "term",
+                                            "value": "<string>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "On what property to order the matching cards. Default is `name`",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "orderby",
+                                            "value": "name"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "The sort order of the returned cards. Default is `AUTO` Sort order:\n  * `ASC` - Ascending, from A to Z\n  * `DESC` - Descending, from Z to A\n  * `AUTO` - Allow the system choose the most inuitive direction to sort.\n",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "sortdir",
+                                            "value": "AUTO"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "The page of the matching resultset to return. Default is `1`.",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "page",
+                                            "value": "1"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"total\": \"<integer>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"next\": \"<string>\",\n  \"previous\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "8fab2bde-8b32-4d78-88e0-0f0f3416d199",
+                            "name": "bad request error",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "search"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) The search term to find cards with",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "term",
+                                            "value": "<string>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "On what property to order the matching cards. Default is `name`",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "orderby",
+                                            "value": "name"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "The sort order of the returned cards. Default is `AUTO` Sort order:\n  * `ASC` - Ascending, from A to Z\n  * `DESC` - Descending, from Z to A\n  * `AUTO` - Allow the system choose the most inuitive direction to sort.\n",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "sortdir",
+                                            "value": "AUTO"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "The page of the matching resultset to return. Default is `1`.",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "page",
+                                            "value": "1"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "a19c210b-d2e8-4a8a-a868-9465bc6d6767",
+                            "name": "client issued too many requests within the alloted time",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "search"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) The search term to find cards with",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "term",
+                                            "value": "<string>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "On what property to order the matching cards. Default is `name`",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "orderby",
+                                            "value": "name"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "The sort order of the returned cards. Default is `AUTO` Sort order:\n  * `ASC` - Ascending, from A to Z\n  * `DESC` - Descending, from Z to A\n  * `AUTO` - Allow the system choose the most inuitive direction to sort.\n",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "sortdir",
+                                            "value": "AUTO"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "The page of the matching resultset to return. Default is `1`.",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "page",
+                                            "value": "1"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Too Many Requests",
+                            "code": 429,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "083f26c3-2275-41a9-ab4f-ad3ef2294bb5",
+                            "name": "backend server error",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "search"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) The search term to find cards with",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "term",
+                                            "value": "<string>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "On what property to order the matching cards. Default is `name`",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "orderby",
+                                            "value": "name"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "The sort order of the returned cards. Default is `AUTO` Sort order:\n  * `ASC` - Ascending, from A to Z\n  * `DESC` - Descending, from Z to A\n  * `AUTO` - Allow the system choose the most inuitive direction to sort.\n",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "sortdir",
+                                            "value": "AUTO"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "The page of the matching resultset to return. Default is `1`.",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "page",
+                                            "value": "1"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Users",
+            "description": "Create & authenticate users",
+            "item": [
+                {
+                    "id": "52c884ad-acca-4434-ae75-b9bb491944bb",
+                    "name": "Authenticate a user",
+                    "request": {
+                        "name": "Authenticate a user",
+                        "description": {
+                            "content": "Authenticate a user with their nickname and password",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "users",
+                                "auth"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "55f1e229-c02b-4af6-8708-8f4b94974892",
+                            "name": "A list of cards marked as favorite by a user",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "users",
+                                        "auth"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"token\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "e2754ce3-3c6c-479d-8d52-6d6adfc3647c",
+                            "name": "bad request error",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "users",
+                                        "auth"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "bb4333d1-23a9-4815-a08f-c8dca9db016f",
+                            "name": "client issued too many requests within the alloted time",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "users",
+                                        "auth"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Too Many Requests",
+                            "code": 429,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "50f750c0-35ff-4223-9cce-a282a52c4bb5",
+                            "name": "backend server error",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "users",
+                                        "auth"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Favs",
+            "description": "Fetch, mark, and unmark cards as favorites",
+            "item": [
+                {
+                    "id": "71224f57-55a6-4a11-8148-28ca2bf5197b",
+                    "name": "Favorite Cards",
+                    "request": {
+                        "name": "Favorite Cards",
+                        "description": {
+                            "content": "Fetch trading game cards marked as favorites",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "favorites"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "ad97d473-e0e6-4619-8b2f-308f3d566111",
+                            "name": "A list of cards marked as favorite by a user",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "favorites"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"total\": \"<integer>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lang\": \"<string>\",\n      \"prices\": {\n        \"usd\": \"<string>\",\n        \"eur\": \"<string>\"\n      },\n      \"foil\": \"<boolean>\",\n      \"rarity\": \"<string>\",\n      \"nonfoil\": \"<boolean>\",\n      \"set_name\": \"<string>\",\n      \"image_uris\": {\n        \"small\": \"<uri>\",\n        \"normal\": \"<uri>\",\n        \"large\": \"<uri>\"\n      },\n      \"released_at\": \"<date>\",\n      \"collector_number\": \"<number>\",\n      \"games\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"next\": \"<string>\",\n  \"previous\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "edf05e21-0e8e-41c4-8e88-ab02c8c502f4",
+                            "name": "bad request error",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "favorites"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "0e9cd8b9-17f2-4206-8ffd-475686b233ea",
+                            "name": "client issued too many requests within the alloted time",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "favorites"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Too Many Requests",
+                            "code": 429,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "c730a137-7d72-4b05-a710-817108310fe0",
+                            "name": "backend server error",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "favorites"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 452,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        }
+    ],
+    "event": [],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://127.0.0.1:8889"
+        }
+    ],
+    "info": {
+        "_postman_id": "8fd926b5-77db-41de-b789-e91816480161",
+        "name": "Trading Cards MVP API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": {
+            "content": "A simple REST API for searching and listing trading game cards\n",
+            "type": "text/plain"
+        }
+    }
+}

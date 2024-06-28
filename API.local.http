@@ -1,0 +1,16 @@
+# Trading Cards MVP Backend
+
+### Hello
+GET {{tcMvpApiBase}}/ HTTP/1.1
+
+### Search for cards
+GET {{tcMvpApiBase}}/search?term=red&orderby=name&page=2 HTTP/1.1
+
+### Login
+POST {{tcMvpApiBase}}/users/auth HTTP/1.1
+
+{
+    "nickname": "chaluwa",
+    "password": "jagabaniswoe"
+}
+
