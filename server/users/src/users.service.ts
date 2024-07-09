@@ -5,7 +5,7 @@ import {
 	jwtSign,
 	logAs,
 	schema,
-	redis
+	redis,
 } from "backend-core";
 import { eq, and } from "drizzle-orm";
 import * as errors from "./users.errors.js";
@@ -14,6 +14,13 @@ import type * as oas from "../../../shared/api/sdk/types.js";
 
 const log = logAs("users");
 
+
+/**
+ * Authenticate a user with their nickname and password
+ * @param dto - The login dto
+ * @throws UserServiceError if the login details are invalid
+ * @returns The auth token
+ */
 export const loginUser = async (
 	dto: oas.LoginAttempt,
 ): Promise<oas.AuthToken> => {
@@ -36,6 +43,12 @@ export const loginUser = async (
 	return { token };
 };
 
+/**
+ * Create a new user with their unique nickname and password
+ * @param dto - The details of the user to create
+ * @throws UserServiceError if the user details are invalid
+ * @returns The created user
+ */
 export const createUser = async (
 	dto: oas.CreateUserDto,
 ): Promise<oas.UserCreatedDto> => {
@@ -57,10 +70,15 @@ export const createUser = async (
 	};
 };
 
-export const getUser = async (
-	userId: oas.UserId,
-): Promise<oas.UserDto> => {
-	if (!userId) throw new errors.UserServiceError(errors.CANNOT_RETRIEVE_USER_MSG);
+/**
+ * Get a currently authenticated user
+ * @param userId - The ID of the user to retrieve
+ * @throws UserServiceError if the user cannot be retrieved
+ * @returns The user
+ */
+export const getUser = async (userId: oas.UserId): Promise<oas.UserDto> => {
+	if (!userId)
+		throw new errors.UserServiceError(errors.CANNOT_RETRIEVE_USER_MSG);
 
 	const cachedUser = await redis.get(userId);
 	if (cachedUser) return JSON.parse(cachedUser);
@@ -96,52 +114,74 @@ export const getUser = async (
 	return fetchedUser;
 };
 
+/**
+ * Add a card to a user's favorites. If the card is already in the user's favorites, this operation will be a no-op.
+ * @param cardId - The ID of the card to add
+ * @param userId - The ID of the user to add the card to
+ * @throws UserServiceError if the card cannot be added to the user's favorites
+ * @returns True if the card was added to the user's favorites, false otherwise
+ */
 export const addToFavorites = async (
 	cardId: string,
-	userId: string
+	userId: string,
 ): Promise<boolean> => {
-	if (!cardId || !userId) throw new errors.UserServiceError(errors.CANNOT_COMPLETE_FAVORITE_ACTION_MSG);
+	if (!cardId || !userId)
+		throw new errors.UserServiceError(
+			errors.CANNOT_COMPLETE_FAVORITE_ACTION_MSG,
+		);
 
-	await db.insert(schema.favorites)
+	await db
+		.insert(schema.favorites)
 		.values({ cardId, userId })
 		.onConflictDoNothing();
 
 	const cachedUser = await redis.get(userId);
-	if (cachedUser) {		
+	if (cachedUser) {
 		const user = JSON.parse(cachedUser);
 		if (!user.favorites) user.favorites = [cardId];
 		else user.favorites = [...user.favorites, cardId];
 
 		redis.set(userId, JSON.stringify(user));
-	}	
-	
+	}
+
 	log.info(`added card [${cardId}] to favorites of user [${userId}]`);
 	return true;
 };
 
+/**
+ * Remove a card from a user's favorites. If the card is not in the user's favorites, this operation will be a no-op.
+ * @param cardId - The ID of the card to remove
+ * @param userId - The ID of the user to remove the card from
+ * @throws UserServiceError if the card cannot be removed from the user's favorites
+ * @returns True if the card was removed from the user's favorites, false otherwise
+ */
 export const removeFromFavorites = async (
 	cardId: string,
-	userId: string
+	userId: string,
 ): Promise<boolean> => {
-	if (!cardId || !userId) throw new errors.UserServiceError(errors.CANNOT_COMPLETE_FAVORITE_ACTION_MSG);	
+	if (!cardId || !userId)
+		throw new errors.UserServiceError(
+			errors.CANNOT_COMPLETE_FAVORITE_ACTION_MSG,
+		);
 
-	await db.delete(schema.favorites)
+	await db
+		.delete(schema.favorites)
 		.where(
 			and(
 				eq(schema.favorites.userId, userId),
-				eq(schema.favorites.cardId, cardId)
-			)
+				eq(schema.favorites.cardId, cardId),
+			),
 		);
 
 	const cachedUser = await redis.get(userId);
-	if (cachedUser) {		
+	if (cachedUser) {
 		const user = JSON.parse(cachedUser) as oas.UserDto;
 		if (user.favorites) {
 			user.favorites = user.favorites.filter((cId) => cId !== cardId);
 			redis.set(userId, JSON.stringify(user));
 		}
 	}
-	
+
 	log.info(`removed card [${cardId}] from favorites of user [${userId}]`);
 	return true;
-};	
+};
