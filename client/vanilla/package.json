@@ -4,7 +4,7 @@
     "source": "src/index.html",
     "scripts": {
         "clean": "rm -rf dist",
-        "lint": "xo --fix",
+        "check": "npx @biomejs/biome check --write ./src",
         "start": "parcel",
         "start:dev": "pnpm build && http-server ./dist",
         "build": "pnpm clean && parcel build"

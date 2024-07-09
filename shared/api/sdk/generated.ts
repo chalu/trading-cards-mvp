@@ -4,7 +4,7 @@
  */
 
 
-export interface paths {
+export type paths = {
   "/": {
     /**
      * API Home
@@ -19,25 +19,44 @@ export interface paths {
      */
     get: operations["searchCards"];
   };
-  "/users/auth": {
+  "/users": {
+    /**
+     * Create a user
+     * @description Add a new user with their unique nickname and password
+     */
+    post: operations["createUser"];
+  };
+  "/users/me": {
+    /**
+     * Get the current user
+     * @description Get a currently authenticated user
+     */
+    get: operations["getCurrentUser"];
+  };
+  "/users/{userId}/favorites": {
+    /**
+     * Remove a card from a user's favorites
+     * @description Remove a card from a user's favorites. If the card is not in the user's favorites, this operation will be ignored.
+     */
+    delete: operations["removeFromFavorites"];
+    /**
+     * Add a card to a user's favorites
+     * @description Add a card to a user's favorites. If the card is already in the user's favorites, this operation will be ignored.
+     */
+    patch: operations["addToFavorites"];
+  };
+  "/authenticate": {
     /**
      * Authenticate a user
      * @description Authenticate a user with their nickname and password
      */
     post: operations["authenticate"];
   };
-  "/favorites": {
-    /**
-     * Favorite Cards
-     * @description Fetch trading game cards marked as favorites
-     */
-    get: operations["getFavorites"];
-  };
-}
+};
 
 export type webhooks = Record<string, never>;
 
-export interface components {
+export type components = {
   schemas: {
     /**
      * @default 1
@@ -130,12 +149,35 @@ export interface components {
       data: components["schemas"]["Card"][];
     };
     CardsQueryResponse: components["schemas"]["QueryResult"] & components["schemas"]["Pagination"];
-    AuthAttempt: {
-      nickname: string;
+    /**
+     * Format: uuid
+     * @example d99a9a7d-d9ca-4c11-80ab-e39d5943a315
+     */
+    FavCard: string;
+    Nickname: string;
+    UserId: string;
+    UserDto: {
+      id: components["schemas"]["UserId"];
+      nickname: components["schemas"]["Nickname"];
+      /** @description A list of cardsmarked as favorites by this user */
+      favorites?: components["schemas"]["FavCard"][];
+    };
+    UserCreatedDto: {
+      id: components["schemas"]["UserId"];
+    };
+    CreateUserDto: {
+      nickname: components["schemas"]["Nickname"];
+      password: string;
+    };
+    LoginAttempt: {
+      nickname: components["schemas"]["Nickname"];
       password: string;
     };
     AuthToken: {
       token: string;
+    };
+    FavCardDto: {
+      card: components["schemas"]["FavCard"];
     };
     APIError: {
       message?: string;
@@ -148,8 +190,41 @@ export interface components {
       errors?: components["schemas"]["APIError"][];
     };
   };
-  responses: never;
+  responses: {
+    /** @description Bad request */
+    BadRequest: {
+      content: {
+        "application/json": components["schemas"]["APIResponseError"];
+      };
+    };
+    /** @description Unauthorized */
+    Unauthorized: {
+      content: {
+        "application/json": components["schemas"]["APIResponseError"];
+      };
+    };
+    /** @description Forbidden */
+    Forbidden: {
+      content: {
+        "application/json": components["schemas"]["APIResponseError"];
+      };
+    };
+    /** @description Too many requests */
+    TooManyRequests: {
+      content: {
+        "application/json": components["schemas"]["APIResponseError"];
+      };
+    };
+    /** @description Internal server error */
+    InternalServerError: {
+      content: {
+        "application/json": components["schemas"]["APIResponseError"];
+      };
+    };
+  };
   parameters: {
+    /** @description The ID of a user to retrieve */
+    userId: components["schemas"]["UserId"];
     /** @description The search term to find cards with */
     searchTerm: components["schemas"]["SearchTermParam"];
     /** @description On what property to order the matching cards. Default is `name` */
@@ -163,17 +238,18 @@ export interface components {
     sortDir?: components["schemas"]["SortDirParam"];
     /** @description The page of the matching resultset to return. Default is `1`. */
     page?: components["schemas"]["PageParam"];
+    tempPath: string;
   };
   requestBodies: never;
   headers: never;
   pathItems: never;
-}
+};
 
 export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
-export interface operations {
+export type operations = {
 
   /**
    * API Home
@@ -187,24 +263,9 @@ export interface operations {
           "application/json": components["schemas"]["APIWelcome"];
         };
       };
-      /** @description bad request error */
-      400: {
-        content: {
-          "application/json": components["schemas"]["APIResponseError"];
-        };
-      };
-      /** @description client issued too many requests within the alloted time */
-      429: {
-        content: {
-          "application/json": components["schemas"]["APIResponseError"];
-        };
-      };
-      /** @description backend server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["APIResponseError"];
-        };
-      };
+      400: components["responses"]["BadRequest"];
+      429: components["responses"]["TooManyRequests"];
+      500: components["responses"]["InternalServerError"];
     };
   };
   /**
@@ -227,24 +288,98 @@ export interface operations {
           "application/json": components["schemas"]["CardsQueryResponse"];
         };
       };
-      /** @description bad request error */
-      400: {
+      400: components["responses"]["BadRequest"];
+      429: components["responses"]["TooManyRequests"];
+      500: components["responses"]["InternalServerError"];
+    };
+  };
+  /**
+   * Create a user
+   * @description Add a new user with their unique nickname and password
+   */
+  createUser: {
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["CreateUserDto"];
+      };
+    };
+    responses: {
+      /** @description A new user object */
+      201: {
         content: {
-          "application/json": components["schemas"]["APIResponseError"];
+          "application/json": components["schemas"]["UserCreatedDto"];
         };
       };
-      /** @description client issued too many requests within the alloted time */
-      429: {
+      400: components["responses"]["BadRequest"];
+      429: components["responses"]["TooManyRequests"];
+      500: components["responses"]["InternalServerError"];
+    };
+  };
+  /**
+   * Get the current user
+   * @description Get a currently authenticated user
+   */
+  getCurrentUser: {
+    responses: {
+      /** @description A new user object */
+      200: {
         content: {
-          "application/json": components["schemas"]["APIResponseError"];
+          "application/json": components["schemas"]["UserDto"];
         };
       };
-      /** @description backend server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["APIResponseError"];
-        };
+      400: components["responses"]["BadRequest"];
+      429: components["responses"]["TooManyRequests"];
+      500: components["responses"]["InternalServerError"];
+    };
+  };
+  /**
+   * Remove a card from a user's favorites
+   * @description Remove a card from a user's favorites. If the card is not in the user's favorites, this operation will be ignored.
+   */
+  removeFromFavorites: {
+    parameters: {
+      path: {
+        userId: components["parameters"]["userId"];
       };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["FavCardDto"];
+      };
+    };
+    responses: {
+      /** @description Removed card from favorites */
+      204: {
+        content: never;
+      };
+      400: components["responses"]["BadRequest"];
+      429: components["responses"]["TooManyRequests"];
+      500: components["responses"]["InternalServerError"];
+    };
+  };
+  /**
+   * Add a card to a user's favorites
+   * @description Add a card to a user's favorites. If the card is already in the user's favorites, this operation will be ignored.
+   */
+  addToFavorites: {
+    parameters: {
+      path: {
+        userId: components["parameters"]["userId"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["FavCardDto"];
+      };
+    };
+    responses: {
+      /** @description Added card to favorites */
+      204: {
+        content: never;
+      };
+      400: components["responses"]["BadRequest"];
+      429: components["responses"]["TooManyRequests"];
+      500: components["responses"]["InternalServerError"];
     };
   };
   /**
@@ -254,7 +389,7 @@ export interface operations {
   authenticate: {
     requestBody?: {
       content: {
-        "application/json": components["schemas"]["AuthAttempt"];
+        "application/json": components["schemas"]["LoginAttempt"];
       };
     };
     responses: {
@@ -264,56 +399,9 @@ export interface operations {
           "application/json": components["schemas"]["AuthToken"];
         };
       };
-      /** @description bad request error */
-      400: {
-        content: {
-          "application/json": components["schemas"]["APIResponseError"];
-        };
-      };
-      /** @description client issued too many requests within the alloted time */
-      429: {
-        content: {
-          "application/json": components["schemas"]["APIResponseError"];
-        };
-      };
-      /** @description backend server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["APIResponseError"];
-        };
-      };
+      400: components["responses"]["BadRequest"];
+      429: components["responses"]["TooManyRequests"];
+      500: components["responses"]["InternalServerError"];
     };
   };
-  /**
-   * Favorite Cards
-   * @description Fetch trading game cards marked as favorites
-   */
-  getFavorites: {
-    responses: {
-      /** @description A list of cards marked as favorite by a user */
-      200: {
-        content: {
-          "application/json": components["schemas"]["CardsQueryResponse"];
-        };
-      };
-      /** @description bad request error */
-      400: {
-        content: {
-          "application/json": components["schemas"]["APIResponseError"];
-        };
-      };
-      /** @description client issued too many requests within the alloted time */
-      429: {
-        content: {
-          "application/json": components["schemas"]["APIResponseError"];
-        };
-      };
-      /** @description backend server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["APIResponseError"];
-        };
-      };
-    };
-  };
-}
+};

@@ -14,5 +14,6 @@
     "yaml.completion": true,
     "yaml.schemas": {
         "https://raw.githubusercontent.com/stepci/stepci/main/schema.json": "*.stepci.yml"
-    }
+    },
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

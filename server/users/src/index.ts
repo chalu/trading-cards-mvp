@@ -1,14 +1,22 @@
-import {type Router} from 'express';
-import {type BackendService} from 'backend-core';
-import type * as oas from '../../../shared/api/sdk/types.js';
-import { usersAuthController } from './users.controller.js';
-
-// export * as errors from './searchcards.errors.js';
-// export { example } from './users.service.js'
+import type { Router } from "express-serve-static-core";
+import type { BackendService } from "backend-core";
+import { jwtAuthenticateMW } from "backend-core";
+import {
+	createUserController,
+	userLoginController,
+	getCurrentUserController,
+	addToFavoritesController,
+	removeFromFavoritesController
+} from "./users.controller.js";
 
 const useRouter = (router: Router): void => {
-    const endpoint: oas.Endpoints['/users/auth'] = '/users/auth';
-    router.post(endpoint, usersAuthController);
-}
+	router.post("/users", createUserController);
+	router.post("/authenticate", userLoginController);
+
+	router.get("/users/me", jwtAuthenticateMW, getCurrentUserController);
+
+	router.patch("/users/:userId/favorites", jwtAuthenticateMW, addToFavoritesController);
+	router.delete("/users/:userId/favorites", jwtAuthenticateMW, removeFromFavoritesController);
+};
 
 export const service: BackendService = { useRouter };

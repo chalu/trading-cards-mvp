@@ -1,13 +1,13 @@
-import type winston from 'winston';
-import morgan, {type StreamOptions} from 'morgan';
-import { Config } from './index.js';
+import morgan, { type StreamOptions } from "morgan";
+import type winston from "winston";
+import { Config } from "./index.js";
 
 export const geMorganMiddleware = (logr: winston.Logger) => {
 	// Override the stream method by telling
 	// Morgan to use our custom logger instead of the console.log.
 	const stream: StreamOptions = {
 		// Use the http severity
-		write: message => logr.http(message),
+		write: (message) => logr.http(message),
 	};
 
 	// Skip all the Morgan http log if the
@@ -17,7 +17,7 @@ export const geMorganMiddleware = (logr: winston.Logger) => {
 	// only warning and error messages in production.
 	const skip = () => {
 		const env = Config.env;
-		return env !== 'development';
+		return env !== "development";
 	};
 
 	// Build the morgan middleware
@@ -26,11 +26,10 @@ export const geMorganMiddleware = (logr: winston.Logger) => {
 		// The message format is made from tokens, and each token is
 		// defined inside the Morgan library.
 		// You can create your custom token to show what do you want from a request.
-		':method :url :status :res[content-length] - :response-time ms',
+		":method :url :status :res[content-length] - :response-time ms",
 		// Options: in this case, I overwrote the stream and the skip logic.
 		// See the methods above.
-		{stream, skip},
+		{ stream, skip },
 	);
 	return middleware;
 };
-

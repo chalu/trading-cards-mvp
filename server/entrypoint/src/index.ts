@@ -1,11 +1,12 @@
-import express, {type Router, type Request, type Response} from 'express';
+import express from 'express';
 import {
-	apiRateLimiter, apiAutoValidator, cacheFor,
+	/*apiRateLimiter, */ apiAutoValidator, cacheFor,
 	expressApp, apiDocumentationRoot, Config
 } from 'backend-core';
 
 import { service as usersService } from 'users';
 import {service as searchCardsService} from 'searchcards';
+import type { Router, Request, Response } from 'express-serve-static-core';
 
 const appName = Config.appName;
 
@@ -25,7 +26,8 @@ router.get('/', (_request: Request, response: Response) => {
 usersService.useRouter(router);
 searchCardsService.useRouter(router);
 
-const middlewares = [apiRateLimiter, ...apiAutoValidator];
+// const middlewares = [apiRateLimiter, ...apiAutoValidator];
+const middlewares = [...apiAutoValidator];
 const staticAssets = [
 	{
 		route: '/docs',

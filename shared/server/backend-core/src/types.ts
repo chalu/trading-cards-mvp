@@ -1,4 +1,4 @@
-import type winston from 'winston';
+import type winston from "winston";
 
 export type AppLogLevels = {
 	// add a custom / high priority level here
@@ -10,9 +10,8 @@ export type AppLogLevels = {
 };
 
 export type AppLogger = winston.Logger & {
-	[k in keyof AppLogLevels]: winston.LeveledLogMethod
+	[k in keyof AppLogLevels]: winston.LeveledLogMethod;
 };
-
 
 export type CatchAllError = {
 	status?: number;
@@ -24,4 +23,3 @@ export type ServeStatic = {
 	route: string;
 	directory: string;
 };
-

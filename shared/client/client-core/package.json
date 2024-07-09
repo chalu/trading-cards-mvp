@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsup src/index.ts --dts --format esm --minify",
     "clean": "rm -rf dist",
-    "lint": "xo --fix"
+    "check": "npx @biomejs/biome check --write ./src"
   },
   "keywords": [],
   "author": "",

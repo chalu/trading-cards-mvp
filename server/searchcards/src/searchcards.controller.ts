@@ -1,14 +1,13 @@
 import { logAs } from 'backend-core';
 import * as service from './searchcards.service.js';
 import type * as oas from '../../../shared/api/sdk/types.js';
-import { type Controller } from 'backend-core';
 
 const log = logAs('search-cards');
 
-export const searchTradingGameCardsController: Controller<{
-    query: oas.SearchCardsQureyParams,
-    resBody: oas.CardsQueryResponse | oas.APIResponseError
-}> = async (request, response): Promise<void> => {
+export const searchTradingGameCardsController: oas.SearchCardsHandler = async (
+    request,
+    response,
+): Promise<void> => {
     const queryParams = request.query;
     log.info(`attempt to retrieve cards with: ${request.originalUrl}`);
     try {

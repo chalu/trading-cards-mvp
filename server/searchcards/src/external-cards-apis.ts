@@ -8,8 +8,8 @@ import {
 
 const log = logAs('search-cards');
 
-const CardsRepoAPI = Config.cardsRepo.api;
-const ScryfallAPIBase = Config.cardsRepo.scryfallApiBase;
+const CardsRepoAPI = Config.cardsRepoAPI;
+const ScryfallAPIBase = Config.scryfallApiBase;
 
 class ScryfallCardsRep implements CardsRepository {
     private apiBase: string;

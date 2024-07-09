@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "pnpm -r run lint",
+    "check": "pnpm -r run check",
     "clean": "pnpm -r run clean",
     "start": "pnpm --stream -r start",
     "build": "pnpm --stream -r run build",
@@ -15,11 +15,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@biomejs/biome": "1.8.3",
     "@parcel/transformer-sass": "2.12.0",
     "@tsconfig/strictest": "^2.0.4",
     "tsup": "^8.0.2",
-    "typescript": "^5.5.2",
-    "xo": "^0.58.0"
+    "typescript": "^5.5.2"
   },
   "packageManager": "pnpm@9.0.6+sha256.0624e30eff866cdeb363b15061bdb7fd9425b17bc1bb42c22f5f4efdea21f6b3"
 }

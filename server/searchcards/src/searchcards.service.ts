@@ -7,7 +7,7 @@ import type { CardsRepoSearchResult } from './searchcards.types.js';
 import type * as oas from '../../../shared/api/sdk/types.js';
 
 const log = logAs('search-cards');
-const MaxScryfallAPIRetries = parseInt(Config.cardsRepo.maxRetries, 10);
+const MaxScryfallAPIRetries = Config.cardsRepoMaxRetries;
 
 const parseCard = (raw: oas.Card): oas.Card => {
     const {
@@ -41,10 +41,8 @@ const parseCard = (raw: oas.Card): oas.Card => {
     return parsed;
 };
 
-const repoErrMsg = 'Unable to reach repository for game cards';
-
 export const searchForGameCards = async (
-    queryParameters: oas.SearchCardsQureyParams
+    search: oas.SearchCardsQureyParams
 ): Promise<CardsRepoSearchResult> => {
     let searchResult: CardsRepoSearchResult = {
         has_more: false,
@@ -57,7 +55,7 @@ export const searchForGameCards = async (
     try {
         const backOffAndRetryOpts = {
             numOfAttempts: MaxScryfallAPIRetries,
-            retry: (_e: any, attemptNumber: number) => {
+            retry: (_e: unknown, attemptNumber: number) => {
                 cardsRepoAPIAttempts = attemptNumber;
                 let msg = `Calling Scryfall failed [${attemptNumber}]. Will`;
                 msg += attemptNumber >= MaxScryfallAPIRetries ? ' no longer retry' : ' retry';
@@ -67,15 +65,15 @@ export const searchForGameCards = async (
         };
 
         const result = await backOff(
-            () => cardsRepo.performSearch(queryParameters), 
+            () => cardsRepo.performSearch(search), 
             backOffAndRetryOpts
         );
         if (cardsRepoAPIAttempts > MaxScryfallAPIRetries) {
-            log.warn(repoErrMsg);
-            throw new errors.CardsRepoUnreachableException(repoErrMsg);
+            log.warn(errors.CARDS_REPO_UNREACHABLE_MSG);
+            throw new errors.CardsServiceError(errors.CARDS_REPO_UNREACHABLE_MSG);
         }
 
-        log.info(`retrieved cards for term: ${queryParameters.term}`);
+        log.info(`retrieved cards for term: ${search.term}`);
         if (result) {
             searchResult = result.data;
             if (searchResult.data && Array.isArray(searchResult.data)) {
@@ -84,9 +82,9 @@ export const searchForGameCards = async (
         }
     } catch (err) {
         const error = err as Error;
-        const msg = error.message || 'Unable to handle your request. Pls try again';
+        const msg = error.message || errors.CARD_SEARCH_FAILED_MSG;
         log.error(error);
-        throw new errors.CardSearchException(msg, {cause: error})
+        throw new errors.CardsServiceError(msg, error);
     }
 
     return searchResult;

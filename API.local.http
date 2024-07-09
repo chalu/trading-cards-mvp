@@ -6,11 +6,46 @@ GET {{tcMvpApiBase}}/ HTTP/1.1
 ### Search for cards
 GET {{tcMvpApiBase}}/search?term=red&orderby=name&page=2 HTTP/1.1
 
-### Login
-POST {{tcMvpApiBase}}/users/auth HTTP/1.1
+### Create User
+POST {{tcMvpApiBase}}/users HTTP/1.1
 
 {
     "nickname": "chaluwa",
     "password": "jagabaniswoe"
 }
+
+### Login User
+# @name login
+POST {{tcMvpApiBase}}/authenticate HTTP/1.1
+
+{
+    "nickname": "chaluwa",
+    "password": "jagabaniswoe"
+}
+
+### set token from login request ===========================
+@token = {{login.response.body.$.token}}
+### =========================================================
+
+### Get a user
+GET {{tcMvpApiBase}}/users/me HTTP/1.1
+Authorization: Bearer {{token}}
+
+### Add a card to a user favorites
+PATCH {{tcMvpApiBase}}/users/d65a13a8-8e6d-4ad6-b322-ef2ffd505615/favorites HTTP/1.1
+Authorization: Bearer {{token}}
+
+{
+    "card": "d65a13a8-8e6d-4ad6-b322-ef2ffd505615"
+}
+
+### Remove a card from a user favorites
+DELETE {{tcMvpApiBase}}/users/d65a13a8-8e6d-4ad6-b322-ef2ffd505615/favorites HTTP/1.1
+Authorization: Bearer {{token}}
+
+{
+    "card": "d65a13a8-8e6d-4ad6-b322-ef2ffd505615"
+}
+
+
 
