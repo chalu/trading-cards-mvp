@@ -41,6 +41,12 @@ const parseCard = (raw: oas.Card): oas.Card => {
     return parsed;
 };
 
+/**
+ * Search for cards using the Scryfall API
+ * @param search - The search query parameters
+ * @throws CardsServiceError if the search fails
+ * @returns The search results
+ */
 export const searchForGameCards = async (
     search: oas.SearchCardsQureyParams
 ): Promise<CardsRepoSearchResult> => {
