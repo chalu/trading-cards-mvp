@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "stepci run tests-happy-path.stepci.yml",
+    "test": "stepci run workflow.yml",
     "clean": "rm -rf ../docs ../sdk/generated.ts",
     "build": "pnpm models:gen && pnpm docs:gen && pnpm postman:gen",
     "build:dev": "pnpm clean && pnpm models:gen && pnpm docs:gen && pnpm postman:gen",
