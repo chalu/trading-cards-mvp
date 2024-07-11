@@ -24,7 +24,7 @@ const log = logAs("users");
 export const loginUser = async (
 	dto: oas.LoginAttempt,
 ): Promise<oas.AuthToken> => {
-	if (!dto) throw new errors.UserServiceError(errors.INVALID_LOGIN_MSG);
+	if (!dto) throw new errors.UserServiceError(errors.MISSING_LOGIN_DETAILS_MSG);
 
 	const [user] = await db
 		.select({
@@ -54,7 +54,6 @@ export const createUser = async (
 ): Promise<oas.UserCreatedDto> => {
 	if (!dto) throw new errors.UserServiceError(errors.CANNOT_CREATE_USER_MSG);
 	const pswdHashed = await hashPswd(dto.password);
-	log.warn(`password: ${pswdHashed}`);
 
 	const [created] = await db
 		.insert(schema.users)
