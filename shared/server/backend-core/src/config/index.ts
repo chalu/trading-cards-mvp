@@ -1,14 +1,44 @@
+import path from 'node:path';
 import process from "node:process";
-import "dotenv/config";
+import Dotenv from "dotenv";
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
+const backToRoot = [];
+const cwd = process.cwd();
+
+// we are starting the backend app normally from the root module
+if (cwd.endsWith('entrypoint')) {
+	backToRoot.push('../', '../');
+} 
+// we are reaching into the backend-core module to run scripts like DB migrations
+else if (cwd.endsWith('backend-core')) {
+	backToRoot.push('../', '../', '../');
+} 
+// we are running the tests
+else if (process.env.NODE_ENV === 'test') {
+	backToRoot.push('./');
+} 
+// not sure where we are running from
+// halt and review
+else {
+	console.log('CWD: ', cwd);
+	process.exit(1);
+}
+
+if (['test', 'development'].includes(process.env.NODE_ENV || '')) {
+	console.log(`Running in ${process.env.NODE_ENV} mode`);
+	const pathToEnvFile = path.resolve(...backToRoot, `.env.${process.env.NODE_ENV}`);
+	console.log(`Loading env file from ${pathToEnvFile}`);
+	Dotenv.config({ path: pathToEnvFile });
+} else {
+	console.log('Running in production mode');
+	Dotenv.config();
+}
+
+
 // This import caused "drizzle-kit studio" to halt bcos of .js extension
 // export { geMorganMiddleware } from './morgan.js';
-
-// Note: if getting trypescript error TS4111", 
-// try adding "noPropertyAccessFromIndexSignature": false to 
-// the compilerOptions in the tsconfig.json file
 
 export const Config = createEnv({
 	server: {

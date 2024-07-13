@@ -26,7 +26,7 @@ export const loginUser = async (
 ): Promise<oas.AuthToken> => {
 	if (!dto) throw new errors.UserServiceError(errors.MISSING_LOGIN_DETAILS_MSG);
 
-	const [user] = await db
+	const [user] = await db()
 		.select({
 			id: schema.users.id,
 			hashedPswd: schema.users.password,
@@ -55,7 +55,7 @@ export const createUser = async (
 	if (!dto) throw new errors.UserServiceError(errors.CANNOT_CREATE_USER_MSG);
 	const pswdHashed = await hashPswd(dto.password);
 
-	const [created] = await db
+	const [created] = await db()
 		.insert(schema.users)
 		.values({ nickname: dto.nickname, password: pswdHashed })
 		.returning();
@@ -82,7 +82,7 @@ export const getUser = async (userId: oas.UserId): Promise<oas.UserDto> => {
 	const cachedUser = await redis.get(userId);
 	if (cachedUser) return JSON.parse(cachedUser);
 
-	const [user] = await db
+	const [user] = await db()
 		.select({
 			id: schema.users.id,
 			nickname: schema.users.nickname,
@@ -95,7 +95,7 @@ export const getUser = async (userId: oas.UserId): Promise<oas.UserDto> => {
 	const fetchedUser: oas.UserDto = user;
 	log.info(`retrieved user [${user.nickname}]`);
 
-	const favorites = await db
+	const favorites = await db()
 		.select({
 			cardId: schema.favorites.cardId,
 		})
