@@ -79,7 +79,7 @@ export const getUser = async (userId: oas.UserId): Promise<oas.UserDto> => {
 	if (!userId)
 		throw new errors.UserServiceError(errors.CANNOT_RETRIEVE_USER_MSG);
 
-	const cachedUser = await redis.get(userId);
+	const cachedUser = await redis().get(userId);
 	if (cachedUser) return JSON.parse(cachedUser);
 
 	const [user] = await db()
@@ -108,7 +108,7 @@ export const getUser = async (userId: oas.UserId): Promise<oas.UserDto> => {
 		fetchedUser.favorites = favorites.map((fav) => fav.cardId);
 	}
 
-	redis.set(user.id, JSON.stringify(fetchedUser));
+	redis().set(user.id, JSON.stringify(fetchedUser));
 
 	return fetchedUser;
 };
@@ -129,18 +129,18 @@ export const addToFavorites = async (
 			errors.CANNOT_COMPLETE_FAVORITE_ACTION_MSG,
 		);
 
-	await db
+	await db()
 		.insert(schema.favorites)
 		.values({ cardId, userId })
 		.onConflictDoNothing();
 
-	const cachedUser = await redis.get(userId);
+	const cachedUser = await redis().get(userId);
 	if (cachedUser) {
 		const user = JSON.parse(cachedUser);
 		if (!user.favorites) user.favorites = [cardId];
 		else user.favorites = [...user.favorites, cardId];
 
-		redis.set(userId, JSON.stringify(user));
+		redis().set(userId, JSON.stringify(user));
 	}
 
 	log.info(`added card [${cardId}] to favorites of user [${userId}]`);
@@ -163,7 +163,7 @@ export const removeFromFavorites = async (
 			errors.CANNOT_COMPLETE_FAVORITE_ACTION_MSG,
 		);
 
-	await db
+	await db()
 		.delete(schema.favorites)
 		.where(
 			and(
@@ -172,12 +172,12 @@ export const removeFromFavorites = async (
 			),
 		);
 
-	const cachedUser = await redis.get(userId);
+	const cachedUser = await redis().get(userId);
 	if (cachedUser) {
 		const user = JSON.parse(cachedUser) as oas.UserDto;
 		if (user.favorites) {
 			user.favorites = user.favorites.filter((cId) => cId !== cardId);
-			redis.set(userId, JSON.stringify(user));
+			redis().set(userId, JSON.stringify(user));
 		}
 	}
 
