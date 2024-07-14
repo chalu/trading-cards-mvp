@@ -26,6 +26,7 @@ else {
 	process.exit(1);
 }
 
+// load a local .env file unless in production
 if (['test', 'development'].includes(process.env.NODE_ENV || '')) {
 	console.log(`Running in ${process.env.NODE_ENV} mode`);
 	const pathToEnvFile = path.resolve(...backToRoot, `.env.${process.env.NODE_ENV}`);
@@ -36,10 +37,6 @@ if (['test', 'development'].includes(process.env.NODE_ENV || '')) {
 	Dotenv.config();
 }
 
-
-// This import caused "drizzle-kit studio" to halt bcos of .js extension
-// export { geMorganMiddleware } from './morgan.js';
-
 export const Config = createEnv({
 	server: {
 		env: z.string(),
@@ -48,6 +45,7 @@ export const Config = createEnv({
 		authSecret: z.string(),
 		cardsRepoAPI: z.string(),
 		scryfallApiBase: z.string(),
+		cacheURL: z.string().url(),
 		databaseUrl: z.string().url(),
 		rateLimitHourWindow: z.coerce.number(),
 		cardsRepoMaxRetries: z.coerce.number(),
@@ -56,6 +54,7 @@ export const Config = createEnv({
 	runtimeEnvStrict: {
 		port: process.env.PORT ?? 8889,
 		authSecret: process.env.JWT_SECRET,
+		cacheURL: process.env.CACHE_URL,
 		databaseUrl: process.env.DATABASE_URL,
 		cardsRepoAPI: process.env.CardsRepoAPI,
 		env: process.env.NODE_ENV ?? "development",
