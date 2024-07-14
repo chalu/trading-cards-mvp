@@ -2,6 +2,7 @@
 import { GenericContainer } from 'testcontainers';
 
 let dbContainer = undefined;
+let cacheContainer = undefined;
 
 export async function startTestContainers() {
     dbContainer = await new GenericContainer('postgres')
@@ -13,10 +14,17 @@ export async function startTestContainers() {
         .withExposedPorts(5432)
         .start();
     
-    console.log('DB test container started');
     const dbURL = `postgresql://test:test@localhost:${dbContainer.getMappedPort(5432)}/test`;
+    console.log('DB test container started');
 
-    return { dbURL };
+    cacheContainer = await new GenericContainer('redis')
+        .withExposedPorts(6379)
+        .start();
+
+    const cacheURL = `redis://localhost:${cacheContainer.getMappedPort(6379)}`;
+    console.log('Cache test container started');
+
+    return { dbURL, cacheURL };
 }
 
 export async function stopTestContainers() {
@@ -25,7 +33,4 @@ export async function stopTestContainers() {
     }
 }
 
-// module.exports = {
-//     startTestContainers,
-//     stopTestContainers
-// };
+
