@@ -26,6 +26,12 @@ else {
 	process.exit(1);
 }
 
+// if we are NOT running in a test or production environment, 
+// we want to use the development environment
+if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production') {
+	process.env.NODE_ENV = 'development';
+}
+
 // load a local .env file unless in production
 if (['test', 'development'].includes(process.env.NODE_ENV || '')) {
 	console.log(`Running in ${process.env.NODE_ENV} mode`);
