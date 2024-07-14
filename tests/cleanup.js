@@ -2,12 +2,7 @@ import { stopTestContainers } from './test-containers';
 
 export async function cleanup() {
     await stopTestContainers();
-    console.log('Test containers stopped');
+    console.log('Test containers stopped & cleaned up!');
+    process.exit(0);
 }
 
-// Listen for the `end` event on the Mocha runner
-// process.on('exit', () => {
-//     cleanup().catch(err => {
-//         console.error('Failed to clean up test environment', err);
-//     });
-// });

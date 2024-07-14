@@ -1,4 +1,11 @@
 import { Redis } from 'ioredis';
 import { Config } from './config/index.js';
 
-export const redis = new Redis(Config.cacheURL);
+let redisClient: Redis | undefined = undefined;
+
+export const redis = () => {
+    if (!redisClient) {
+        redisClient = new Redis(Config.cacheURL);
+    }
+    return redisClient;
+}

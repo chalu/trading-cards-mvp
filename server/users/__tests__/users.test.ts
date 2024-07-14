@@ -13,10 +13,8 @@ describe("Users Service", () => {
 			expect(user).to.be.an("object");
 			expect(user.id).to.be.a("string");
 		} catch (e) {
-			if (e instanceof Error) {
-				if (e.name === "AggregateError") return;
-				console.error(e);
-			}
+			if (e instanceof Error && e.name === "AggregateError") return;
+			console.error(e);
 		}
 	});
 });

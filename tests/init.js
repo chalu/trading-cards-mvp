@@ -1,3 +1,4 @@
+// @ts-nocheck
 import fs from 'node:fs';
 import path from 'node:path';
 import Dotenv from 'dotenv';
@@ -5,26 +6,25 @@ import { startTestContainers } from './test-containers';
 
 export async function init() {
     try {
-        console.log('Initializing test containers ...');
-        const { dbURL } = await startTestContainers();
+        const pathToEnvFile = path.resolve(__dirname, '../', '.env.test');
+        Dotenv.config({ path: pathToEnvFile });
 
-        // @ts-ignore
+        console.log('Initializing test containers ...');
+        const { dbURL, cacheURL } = await startTestContainers(process.env.APP_NAME);
+
         process.env.NODE_ENV = "test";
-        // @ts-ignore
         process.env.DATABASE_URL = dbURL;
+        process.env.CACHE_URL = cacheURL;
 
         const envVariables = Object.keys(process.env)
         .map(key => `${key}=${process.env[key]}`).join('\n');
 
-        // Write and load .env.test file
-        const pathToEnvFile = path.resolve(__dirname, '../', '.env.test');
+        // Write and reload .env.test file
         fs.writeFileSync(pathToEnvFile, envVariables, { encoding: 'utf-8', flag: 'w' });
         Dotenv.config({ path: pathToEnvFile });
-        console.log('Test containers initialized\n\n');
+        console.log('Test containers are now ready!\n\n');
     } catch (err) {
         console.error('Failed to initialize test environment', err);
         process.exit(1);
     }
 }
-
-// module.exports = init;
