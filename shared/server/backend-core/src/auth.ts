@@ -28,20 +28,20 @@ export const comparePswd = async (
 export const jwtSign = async (
 	payload: JwtDataPayload,
 ): Promise<string> => {
-	const encoded = jwt.sign({ data: payload }, Config.authSecret, {
+	const encoded = jwt.sign({ data: payload }, Config.get().authSecret, {
 		expiresIn: "1d",
 	});
 	return encoded;
 };
 
 export const jwtVerify = async (token: string) => {
-	const decoded = jwt.verify(token, Config.authSecret);
+	const decoded = jwt.verify(token, Config.get().authSecret);
 	return decoded;
 };
 
 passport.use(new JwtStrategy(
 	{
-		secretOrKey: Config.authSecret,
+		secretOrKey: Config.get().authSecret,
 		jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 	},
 	async (payload, done) => {

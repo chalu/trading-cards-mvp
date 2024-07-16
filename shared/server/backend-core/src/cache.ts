@@ -5,7 +5,7 @@ let redisClient: Redis | undefined = undefined;
 
 export const redis = () => {
     if (!redisClient) {
-        redisClient = new Redis(Config.cacheURL);
+        redisClient = new Redis(Config.get({latest: true}).cacheURL);
     }
     return redisClient;
 }

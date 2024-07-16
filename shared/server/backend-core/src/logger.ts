@@ -3,9 +3,9 @@ import { Config } from "./config/index.js";
 import { geMorganMiddleware } from "./config/morgan.js";
 import type { AppLogLevels, AppLogger } from "./types.js";
 
-const env = Config.env;
-const isDevelopment = env === "development";
-const appName = Config.appName;
+const env = Config.get().env;
+const isDevOrTestEnv = env === "development" || env === "test";
+const appName = Config.get().appName;
 
 winston.addColors({
 	battle: "cyan",
@@ -46,7 +46,7 @@ const transports: winston.transport[] = [
 	}),
 ];
 
-if (isDevelopment) {
+if (isDevOrTestEnv) {
 	transports.unshift(new winston.transports.Console());
 }
 

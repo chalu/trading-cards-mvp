@@ -4,13 +4,14 @@ import { fileURLToPath } from "node:url";
 
 import cors from "cors";
 import express from "express";
-import * as OpenApiValidator from "express-openapi-validator";
-import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import * as jsyaml from "js-yaml";
-import { isUlidFormat } from "./openapi-formats/index.js";
+import rateLimit from "express-rate-limit";
+import * as OpenApiValidator from "express-openapi-validator";
+
 import { Config } from "./config/index.js";
 import { logAs, logMiddleware } from "./logger.js";
+import { isUlidFormat } from "./openapi-formats/index.js";
 
 import type { Server } from "node:http";
 import type {
@@ -22,7 +23,7 @@ import type {
 } from "express-serve-static-core";
 import type { CatchAllError, ServeStatic } from "./types.js";
 
-const appName = Config.appName;
+const appName = Config.get().appName;
 const __filename = fileURLToPath(import.meta.url);
 
 export * from "./auth.js";
@@ -38,9 +39,9 @@ const ymlFilePath = path.resolve(path.dirname(__filename), "api.yaml");
 const ymlAsString = fs.readFileSync(ymlFilePath, "utf8");
 const apiSpecYaml = jsyaml.load(ymlAsString) as string;
 
-const rateLimitHours = Config.rateLimitHourWindow;
+const rateLimitHours = Config.get().rateLimitHourWindow;
 const rateLimitWindowMs = rateLimitHours * 60 * 60 * 1000;
-const rateLimitMaxRequestWithinWindow = Config.rateLimitHourWindow;
+const rateLimitMaxRequestWithinWindow = Config.get().rateLimitHourWindow;
 
 type SingleCachePeriod = "day" | "hour" | "week";
 type MultipleCachePeriod = `${SingleCachePeriod}s`;
@@ -111,7 +112,7 @@ const terminateGracefully = (server: Server, signal: string) => {
 			`[${appName} Server] Received ${signal.toUpperCase()} - terminating gracefully...`,
 		);
 		server.close(() => {
-			console.log(`[${appName} Server] terminated by ${signal.toUpperCase()}`);
+			log.info(`[${appName} Server] terminated by ${signal.toUpperCase()}`);
 			// eslint-disable-next-line unicorn/no-process-exit
 			process.exit(0);
 		});
@@ -125,6 +126,7 @@ export const expressApp = (
 	preRouteMiddlewares: RequestHandler[],
 	statics?: ServeStatic[],
 ) => {
+	log.info(`[${appName} Server] Creating express app`);
 	const app = express();
 	app.use(cors());
 	app.use(
@@ -166,12 +168,14 @@ export const expressApp = (
 	}
 
 	app.use("/", router);
+	log.info(`[${appName} Server] Express app created`);
 
 	if (statics) {
 		// Serve static files e.g for API documentation
 		for (const { route, directory } of statics) {
 			app.use(route, express.static(directory));
 		}
+		log.info(`[${appName} Server] Static files dir(s) configured`);
 	}
 
 	const catchAllErrorHandler: ErrorRequestHandler = (
@@ -191,9 +195,16 @@ export const expressApp = (
 
 	app.use(catchAllErrorHandler);
 
-	const port = Config.port;
+	log.info(`[${appName} Server] Finilazing initialization`);
+
+	const port = Config.get().port;
+	log.info(`[${appName} Server] Starting server on port ${port}`);
 	const server = app.listen(port, () => {
 		log.info(`[${appName} Server] Ready : http://localhost:${port}`);
+	}).on("error", (err) => {
+		log.error(`[${appName} Server] Error starting server on port ${port}`);
+		log.error(err);
+		process.exit(1);	
 	});
 
 	process.on("SIGINT", terminateGracefully(server, "SIGINT"));
@@ -204,29 +215,3 @@ export type BackendService = {
 	useRouter: (router: Router) => void;
 };
 
-// export type Rec = Record<string, unknown>;
-// export type RequestCanQuery<QueryType = Rec, ParametersType = Rec> = Request<ParametersType, Rec, Rec, QueryType>;
-// export type RequestHasBody<BodyType, ParametersType = Rec> = Request<ParametersType, Rec, BodyType, Rec>;
-
-// type Endpoint = {
-// 	path?: unknown;
-// 	query?: unknown;
-// 	resBody?: unknown;
-// 	reqBody?: unknown;
-// };
-
-// export type Controller<E extends Endpoint> = RequestHandler<E['path'], E['resBody'], E['reqBody'], E['query']>;
-
-// type IEndpoint = {
-//     route: string;
-//     resBody?: unknown;
-//     reqBody?: unknown;
-//     queryParams?: unknown;
-// };
-
-// export type Controller<E extends IEndpoint> = RequestHandler<
-// 	RouteParameters<E['route']>,
-// 	E['resBody'],
-// 	E['reqBody'],
-// 	E['queryParams']
-// >;

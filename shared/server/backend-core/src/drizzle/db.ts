@@ -7,9 +7,9 @@ let client: postgres.Sql | undefined = undefined;
 
 export const db = () => {
     if (!client) {
-        client = postgres(Config.databaseUrl);
-        return drizzle(client, { schema, logger: true });
+        client = postgres(Config.get({latest: true}).databaseUrl);
+        return drizzle(client, { schema });
     }
-    return drizzle(client, { schema, logger: false });
+    return drizzle(client, { schema });
 };
 export * as schema from "./schema.js";

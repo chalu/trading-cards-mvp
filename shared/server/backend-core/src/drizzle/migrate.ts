@@ -3,9 +3,8 @@ import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
 import { Config } from "../config/index.js";
 
-const client = postgres(Config.databaseUrl, { max: 1 });
-
 const main = async () => {
+	const client = postgres(Config.get().databaseUrl, { max: 1 });
 	await migrate(drizzle(client), {
 		migrationsFolder: "./src/drizzle/migrations",
 	});

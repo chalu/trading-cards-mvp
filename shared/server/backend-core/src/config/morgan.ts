@@ -16,7 +16,7 @@ export const geMorganMiddleware = (logr: winston.Logger) => {
 	// we already told the logger that it should print
 	// only warning and error messages in production.
 	const skip = () => {
-		const env = Config.env;
+		const env = Config.get().env;
 		return env !== "development";
 	};
 

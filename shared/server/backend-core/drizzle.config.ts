@@ -3,7 +3,7 @@ import { Config } from './src/config/index';
 
 console.log(
     'Drizzle DB Is',
-    Config.databaseUrl.substring(Config.databaseUrl.indexOf('@') + 1)
+    Config.get().databaseUrl.substring(Config.get().databaseUrl.indexOf('@') + 1)
 );
 
 export default defineConfig({
@@ -11,7 +11,7 @@ export default defineConfig({
     out: './src/drizzle/migrations',
     dialect: 'postgresql',
     dbCredentials: {
-        url: Config.databaseUrl
+        url: Config.get().databaseUrl
     },
     strict: true,
     verbose: true
