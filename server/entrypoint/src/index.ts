@@ -8,18 +8,15 @@ import { service as usersService } from 'users';
 import {service as searchCardsService} from 'searchcards';
 import type { Router, Request, Response } from 'express-serve-static-core';
 
-const appName = Config.appName;
-
 // eslint-disable-next-line new-cap
 const router: Router = express.Router({caseSensitive: true});
 
-const lastModifiedDate = (new Date('2024-4-05 09:00:00')).toISOString();
-
+const lastModifiedDate = (new Date('2024-7-05 09:00:00')).toISOString();
 router.get('/', (_request: Request, response: Response) => {
 	response.set('Last-Modified', lastModifiedDate);
 	response.set('Cache-Control', cacheFor('30 days'));
 	response.json({
-		message: `${appName} API Services (v1) - Since ${lastModifiedDate}`,
+		message: `${Config.get().appName} API Services (v1) - Since ${lastModifiedDate}`,
 	});
 });
 
