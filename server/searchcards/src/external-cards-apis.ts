@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { logAs, Config } from 'backend-core';
 import type * as oas from '../../../shared/api/sdk/types.js';
-import { 
+import type { 
     CardsRepository, CardsRepositoryStrategy,
     RepoSearchResult
 } from './searchcards.types.js';
 
 const log = logAs('search-cards');
 
-const CardsRepoAPI = Config.cardsRepoAPI;
-const ScryfallAPIBase = Config.scryfallApiBase;
+const CardsRepoAPI = Config.get().cardsRepoAPI;
+const ScryfallAPIBase = Config.get().scryfallApiBase;
 
 class ScryfallCardsRep implements CardsRepository {
     private apiBase: string;

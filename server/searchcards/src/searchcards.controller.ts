@@ -17,9 +17,7 @@ export const searchTradingGameCardsController: oas.SearchCardsHandler = async (
             data: cards
         };
 
-        log.info('preparing response ...');
         const pagination = paginate(request.originalUrl, has_more, queryParams);
-        console.log('pagination', pagination);
 
         response.json({...output, ...pagination});
     } catch (err) {
@@ -56,7 +54,6 @@ const paginate = (requestUrl: string, hasMore: boolean, queryParams: oas.SearchC
     url = setOrderByParam(url, orderby);
 
     if (page >= 2 || hasMore === true) {
-        log.info('paginating response ...');
         if (page >= 2) {
             nav.previous = setPageParam(url, page - 1);
         }

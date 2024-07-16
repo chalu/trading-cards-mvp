@@ -7,7 +7,7 @@ import type { CardsRepoSearchResult } from './searchcards.types.js';
 import type * as oas from '../../../shared/api/sdk/types.js';
 
 const log = logAs('search-cards');
-const MaxScryfallAPIRetries = Config.cardsRepoMaxRetries;
+const MaxScryfallAPIRetries = Config.get().cardsRepoMaxRetries;
 
 const parseCard = (raw: oas.Card): oas.Card => {
     const {
