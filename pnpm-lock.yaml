@@ -8,9 +8,15 @@ importers:
 
   .:
     dependencies:
+      axios:
+        specifier: ^1.7.2
+        version: 1.7.2
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
+      postgres:
+        specifier: ^3.4.4
+        version: 3.4.4
     devDependencies:
       '@biomejs/biome':
         specifier: 1.8.3
@@ -18,6 +24,12 @@ importers:
       '@parcel/transformer-sass':
         specifier: 2.12.0
         version: 2.12.0(@parcel/core@2.12.0(@swc/helpers@0.5.11))(@swc/helpers@0.5.11)
+      '@testcontainers/postgresql':
+        specifier: ^10.10.3
+        version: 10.10.3
+      '@testcontainers/redis':
+        specifier: ^10.10.3
+        version: 10.10.3
       '@tsconfig/strictest':
         specifier: ^2.0.4
         version: 2.0.5
@@ -82,6 +94,9 @@ importers:
       backend-core:
         specifier: workspace:^
         version: link:../../shared/server/backend-core
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
       express:
         specifier: ^4.19.2
         version: 4.19.2
@@ -113,6 +128,9 @@ importers:
       backend-core:
         specifier: workspace:^
         version: link:../../shared/server/backend-core
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
       exponential-backoff:
         specifier: ^3.1.1
         version: 3.1.1
@@ -126,6 +144,9 @@ importers:
       backend-core:
         specifier: workspace:^
         version: link:../../shared/server/backend-core
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
       drizzle-orm:
         specifier: ^0.31.2
         version: 0.31.2(postgres@3.4.4)(react@18.3.1)
@@ -184,6 +205,9 @@ importers:
       cors:
         specifier: ^2.8.5
         version: 2.8.5
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
       drizzle-orm:
         specifier: ^0.31.2
         version: 0.31.2(postgres@3.4.4)(react@18.3.1)
@@ -1556,6 +1580,12 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  '@testcontainers/postgresql@10.10.3':
+    resolution: {integrity: sha512-k887VJjbbSyHr4eTRVhoBit9A+7WDYx/EU8XdwJ0swuECB1hOjMuvpCX/AlXLk+bD6dNrE/0lvKW6SwqFTXo1A==}
+
+  '@testcontainers/redis@10.10.3':
+    resolution: {integrity: sha512-tOnIdIcz1xCppaS16ZjXDKuVHshE4JGAAosZ71B0OSGnkh7qtBwGGTevIp/Ab6+2z6u2pr6LDdOjJSwM/owj/Q==}
 
   '@tgwf/co2@0.11.4':
     resolution: {integrity: sha512-I6e+WzdDpVbKLkTDJXAA0kJvOJQg1TNfTOu7PA5+FfxLEix9EqdigVK0Qd4flC82fLgTKSw4upuh+nCm4fFCaQ==}
@@ -6766,6 +6796,20 @@ snapshots:
       zod: 3.23.8
     optionalDependencies:
       typescript: 5.5.2
+
+  '@testcontainers/postgresql@10.10.3':
+    dependencies:
+      testcontainers: 10.10.3
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+
+  '@testcontainers/redis@10.10.3':
+    dependencies:
+      testcontainers: 10.10.3
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
 
   '@tgwf/co2@0.11.4':
     dependencies:

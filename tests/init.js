@@ -6,22 +6,33 @@ import { startTestContainers } from './test-containers';
 
 export async function init() {
     try {
-        const pathToEnvFile = path.resolve(__dirname, '../', '.env.test');
-        Dotenv.config({ path: pathToEnvFile });
-
         console.log('Initializing test containers ...');
+
+        const pathToEnvFile = path.resolve(__dirname, '../', '.env.test.local');
+        const envFileContent = fs.readFileSync(pathToEnvFile, 'utf-8');
+        const envVariables = Dotenv.parse(envFileContent);
+
         const { dbURL, cacheURL } = await startTestContainers(process.env.APP_NAME);
 
-        process.env.NODE_ENV = "test";
-        process.env.DATABASE_URL = dbURL;
-        process.env.CACHE_URL = cacheURL;
+        for (const [key, value] of Object.entries(envVariables)) {
+            process.env[key] = value;
+            if (key.startsWith('DATABASE_URL')) {
+                process.env.DATABASE_URL = dbURL;
+            }
+            if (key.startsWith('CACHE_URL')) {
+                process.env.CACHE_URL = cacheURL;
+            }
 
-        const envVariables = Object.keys(process.env)
-        .map(key => `${key}=${process.env[key]}`).join('\n');
+            if (key.startsWith('NODE_ENV')) {
+                process.env.NODE_ENV = 'test';
+            }
+        }
 
-        // Write and reload .env.test file
-        fs.writeFileSync(pathToEnvFile, envVariables, { encoding: 'utf-8', flag: 'w' });
-        Dotenv.config({ path: pathToEnvFile });
+        const updatedEnvVariables = Object.keys(envVariables)
+        .map(key => `${key}="${process.env[key]}"`).join('\n');
+
+        // Update.env.test.local file
+        fs.writeFileSync(pathToEnvFile, updatedEnvVariables, { encoding: 'utf-8', flag: 'w' });
         console.log('Test containers are now ready!\n\n');
     } catch (err) {
         console.error('Failed to initialize test environment', err);

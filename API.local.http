@@ -47,5 +47,8 @@ Authorization: Bearer {{token}}
     "card": "d65a13a8-8e6d-4ad6-b322-ef2ffd505615"
 }
 
+### Search for cards
+GET {{tcMvpApiBase}}/search?term=pokey HTTP/1.1
+
 
 

@@ -18,6 +18,8 @@
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "@parcel/transformer-sass": "2.12.0",
+    "@testcontainers/postgresql": "^10.10.3",
+    "@testcontainers/redis": "^10.10.3",
     "@tsconfig/strictest": "^2.0.4",
     "@types/chai": "^4.3.16",
     "@types/mocha": "^10.0.7",
@@ -30,6 +32,8 @@
   },
   "packageManager": "pnpm@9.0.6+sha256.0624e30eff866cdeb363b15061bdb7fd9425b17bc1bb42c22f5f4efdea21f6b3",
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "postgres": "^3.4.4"
   }
 }

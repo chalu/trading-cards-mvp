@@ -1,43 +1,64 @@
-import { GenericContainer } from 'testcontainers';
+import postgres from 'postgres';
+import { Wait } from 'testcontainers';
+import { RedisContainer } from '@testcontainers/redis';
+import { PostgreSqlContainer } from '@testcontainers/postgresql';
 import type { StartedTestContainer } from 'testcontainers';
 
-let containers: StartedTestContainer[] = [];
+const containers: StartedTestContainer[] = [];    
 
-export async function startTestContainers(applicationName: string) {
-    const appName = (applicationName || 'my-test-app').toLowerCase().replaceAll(/\s+/g, '-');
+const startDBContainer = () => {
 
-    const dbContainer = await new GenericContainer('postgres')
-        .withName(`${appName}-db`)
+    return new PostgreSqlContainer('postgres:16.3-alpine')
         .withEnvironment({
             'POSTGRES_USER': 'test',
-            'POSTGRES_PASSWORD': 'test',  
-            'POSTGRES_DB': 'test'
+            'POSTGRES_PASSWORD': 'test'
+        })
+        .withHealthCheck({
+            test: [ "CMD", "pg_isready" ],
+            interval: 10000,
+            timeout: 5000,
+            retries: 5,
+        })
+        .withWaitStrategy(Wait.forHealthCheck())
+        // .withCopyFilesToContainer([{
+        //     source: './init.sqll',
+        //     target: '/docker-entrypoint-initdb.d/'
+        // }])
+        .withLogConsumer((stream) => {
+            stream.on("data", line => console.log('[DB] ', line));
+            stream.on("err", line => console.error('[DB] ', line));
+            stream.on("end", () => console.log("[DB] Stream closed\n"));
         })
         .withExposedPorts(5432);
+};
 
-    const cacheContainer = await new GenericContainer('redis')
-        .withName(`${appName}-cache`)
-        .withExposedPorts(6379);
+const startCacheContainer = () => {
+    return new RedisContainer('redis:7.2-alpine')
+        .withHealthCheck({
+            test: [ "CMD", "redis-cli", "ping" ],
+            interval: 10000,
+            timeout: 5000,
+            retries: 5,
+        })
+        .withWaitStrategy(Wait.forHealthCheck())
+        .withExposedPorts(6379);   
+};
 
-    containers = await Promise.all(
-        [dbContainer, cacheContainer].map(container => container.start())
-    );
+export async function startTestContainers() {
 
-    let dbURL = 'postgresql://test:test@localhost:PORT/test';
-    const startedDbContainer = containers.find(container => container?.getName().endsWith('db'));
-    if (startedDbContainer) {
-        const [host, mappedPort] = [startedDbContainer.getHost(), startedDbContainer.getMappedPort(5432)];
-        dbURL = `postgresql://test:test@${host}:${mappedPort}/test`;
-        console.log('DB test container started');
-    }
-    
-    let cacheURL = 'redis://localhost:PORT';
-    const startedCacheContainer = containers.find(container => container?.getName().endsWith('cache'));
-    if (startedCacheContainer) {
-        const [host, mappedPort] = [startedCacheContainer.getHost(), startedCacheContainer.getMappedPort(6379)];
-        cacheURL = `redis://${host}:${mappedPort}`;
-        console.log('Cache test container started');
-    }
+    const [dbContainer, cacheContainer] = await Promise.all([
+        startDBContainer().start(),
+        startCacheContainer().start()
+    ]);
+
+    const dbURL = dbContainer.getConnectionUri();
+    const cacheURL = cacheContainer.getConnectionUrl();
+
+    const sql = postgres(dbURL);
+    const initResult = await sql.file(`${__dirname}/testdb.init.sql`);
+    console.log('Init SQL: ', initResult);
+
+    containers.push(dbContainer, cacheContainer);
 
     return { dbURL, cacheURL };
 }

@@ -1,5 +1,5 @@
 {
-    "require": ["tsx", "./tests/root-hooks.mjs"],
+    "require": ["tsx", "tests/root-hooks.mjs"],
     "extension": ["ts"],
     "spec": "./**/*.test.ts",
     "timeout": 75000
