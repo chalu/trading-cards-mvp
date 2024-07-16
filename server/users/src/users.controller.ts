@@ -35,6 +35,7 @@ export const createUserController: oas.CreateUserHandler = async (
 		response.status(201).json(createdUser);
 	} catch (err) {
 		const error = err as Error;
+		console.error(error);
 		log.error(error);
 		const errOut: oas.APIResponseError = { message: error.message };
 		const status = error instanceof errors.UserServiceError ? 400 : 500;
