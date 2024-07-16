@@ -13,11 +13,9 @@ services:
       timeout: 5s
       retries: 5
     environment:
-      # - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=cards-mvp
       - POSTGRES_PASSWORD=password
     volumes:
-      # - ./db-data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   redis:
     image: redis:7.0.15
@@ -30,8 +28,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    volumes:
-      - redis-data:/data
   # redisinsight:
   #   image: redislabs/redisinsight:latest
   #   restart: always
@@ -40,13 +36,7 @@ services:
   #   container_name: cards-mvp-redisinsight
   #   ports:
   #     - 8001:8001
-  #   volumes:
-  #     - ./redisinsight-data:/usr/src/app/data 
   #   environment:
   #     - REDIS_HOST=redis
   #     - REDIS_PORT=6379
 
-volumes:
-  db-data:
-  redis-data:
-  # redisinsight-data:
