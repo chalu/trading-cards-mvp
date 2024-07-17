@@ -14,7 +14,7 @@ export type paths = {
   };
   "/search": {
     /**
-     * List Cards
+     * Search Cards
      * @description Search for, and list trading game cards that match a search term
      */
     get: operations["searchCards"];
@@ -29,7 +29,7 @@ export type paths = {
   "/users/me": {
     /**
      * Get the current user
-     * @description Get a currently authenticated user
+     * @description Get the currently authenticated user
      */
     get: operations["getCurrentUser"];
   };
@@ -269,7 +269,7 @@ export type operations = {
     };
   };
   /**
-   * List Cards
+   * Search Cards
    * @description Search for, and list trading game cards that match a search term
    */
   searchCards: {
@@ -304,7 +304,7 @@ export type operations = {
       };
     };
     responses: {
-      /** @description A new user object */
+      /** @description The newly created user */
       201: {
         content: {
           "application/json": components["schemas"]["UserCreatedDto"];
@@ -317,11 +317,11 @@ export type operations = {
   };
   /**
    * Get the current user
-   * @description Get a currently authenticated user
+   * @description Get the currently authenticated user
    */
   getCurrentUser: {
     responses: {
-      /** @description A new user object */
+      /** @description The authenticated user */
       200: {
         content: {
           "application/json": components["schemas"]["UserDto"];
@@ -348,7 +348,7 @@ export type operations = {
       };
     };
     responses: {
-      /** @description Removed card from favorites */
+      /** @description The card was removed from the user's favorites */
       204: {
         content: never;
       };
@@ -373,7 +373,7 @@ export type operations = {
       };
     };
     responses: {
-      /** @description Added card to favorites */
+      /** @description The card was added to the user's favorites */
       204: {
         content: never;
       };
@@ -393,7 +393,7 @@ export type operations = {
       };
     };
     responses: {
-      /** @description A list of cards marked as favorite by a user */
+      /** @description A JWT for the authenticated user */
       200: {
         content: {
           "application/json": components["schemas"]["AuthToken"];

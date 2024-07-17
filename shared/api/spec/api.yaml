@@ -37,7 +37,7 @@ paths:
   
   /search:
     get:
-      summary: List Cards
+      summary: Search Cards
       description: Search for, and list trading game cards that match a search term
       operationId: searchCards
       tags:
@@ -76,7 +76,7 @@ paths:
               $ref: "#/components/schemas/CreateUserDto"
       responses:
         '201':
-          description: A new user object
+          description: The newly created user
           content:
             application/json:    
               schema:
@@ -91,7 +91,7 @@ paths:
   /users/me:
     get:
       summary: Get the current user
-      description: Get a currently authenticated user
+      description: Get the currently authenticated user
       operationId: getCurrentUser
       tags:
         - Users
@@ -99,7 +99,7 @@ paths:
         - BearerAuth: []
       responses:
         '200':
-          description: A new user object
+          description: The authenticated user
           content:
             application/json:    
               schema:
@@ -129,7 +129,7 @@ paths:
               $ref: "#/components/schemas/FavCardDto"
       responses:
         '204':
-          description: Added card to favorites
+          description: The card was added to the user's favorites
         '400':
           $ref: '#/components/responses/BadRequest'
         '429':
@@ -154,7 +154,7 @@ paths:
               $ref: "#/components/schemas/FavCardDto"
       responses:
         '204':
-          description: Removed card from favorites
+          description: The card was removed from the user's favorites
         '400':
           $ref: '#/components/responses/BadRequest'
         '429':
@@ -177,7 +177,7 @@ paths:
               $ref: "#/components/schemas/LoginAttempt"
       responses:
         '200':
-          description: A list of cards marked as favorite by a user
+          description: A JWT for the authenticated user
           content:
             application/json:    
               schema:
