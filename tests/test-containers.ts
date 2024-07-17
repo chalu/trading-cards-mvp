@@ -1,4 +1,3 @@
-import postgres from 'postgres';
 import { Wait } from 'testcontainers';
 import { RedisContainer } from '@testcontainers/redis';
 import { PostgreSqlContainer } from '@testcontainers/postgresql';
@@ -20,12 +19,16 @@ const startDBContainer = () => {
             retries: 5,
         })
         .withWaitStrategy(Wait.forHealthCheck())
-        // .withCopyFilesToContainer([{
-        //     source: './init.sqll',
-        //     target: '/docker-entrypoint-initdb.d/'
-        // }])
+        .withCopyFilesToContainer([{
+            source: './tests/testdb.init.sql',
+            target: '/docker-entrypoint-initdb.d/init.sql'
+        }])
         .withLogConsumer((stream) => {
-            stream.on("data", line => console.log('[DB] ', line));
+            stream.on("data", line => {
+                if (line.includes('docker-entrypoint-initdb')) {
+                    console.log('[DB] ', line);
+                }
+            });
             stream.on("err", line => console.error('[DB] ', line));
             stream.on("end", () => console.log("[DB] Stream closed\n"));
         })
@@ -53,10 +56,6 @@ export async function startTestContainers() {
 
     const dbURL = dbContainer.getConnectionUri();
     const cacheURL = cacheContainer.getConnectionUrl();
-
-    const sql = postgres(dbURL);
-    const initResult = await sql.file(`${__dirname}/testdb.init.sql`);
-    console.log('Init SQL: ', initResult);
 
     containers.push(dbContainer, cacheContainer);
 
