@@ -62,7 +62,6 @@ const reloadEnv = () => {
 			delete process.env[key];
 		}
 		Dotenv.config({ path: pathToLocalEnvFile });
-		console.log('Using [DB URL]: ', process.env.DATABASE_URL);
 	} else {
 		Dotenv.config();
 	}

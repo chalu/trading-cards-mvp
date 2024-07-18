@@ -50,5 +50,14 @@ Authorization: Bearer {{token}}
 ### Search for cards
 GET {{tcMvpApiBase}}/search?term=pokey HTTP/1.1
 
+### Create uer at first login
+POST {{tcMvpApiBase}}/authenticate HTTP/1.1
+
+{
+    "nickname": "chaluwa",
+    "password": "jagabaniswoe",
+    "createUser": true
+}
+
 
 

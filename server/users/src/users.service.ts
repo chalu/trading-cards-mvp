@@ -14,6 +14,16 @@ import type * as oas from "../../../shared/api/sdk/types.js";
 
 const log = logAs("users");
 
+const nicknameIsTaken = async (nickname: string): Promise<boolean> => {
+	const [user] = await db()
+		.select({
+			id: schema.users.id,
+		})
+		.from(schema.users)
+		.where(eq(schema.users.nickname, nickname));
+	return user !== undefined;
+};
+
 
 /**
  * Authenticate a user with their nickname and password
@@ -25,6 +35,17 @@ export const loginUser = async (
 	dto: oas.LoginAttempt,
 ): Promise<oas.AuthToken> => {
 	if (!dto) throw new errors.UserServiceError(errors.MISSING_LOGIN_DETAILS_MSG);
+
+	if (dto.createUser === true) {
+		log.info(`attempt to create user [${dto.nickname}] at first login`);
+		const nicknameTaken = await nicknameIsTaken(dto.nickname);
+		if (nicknameTaken) throw new errors.UserServiceError(errors.NICKNAME_TAKEN_MSG);
+
+		const user = await createUser(dto);
+		const token = await jwtSign({ uid: user.id });
+		log.info(`generated JWT for [created] user [${dto.nickname}]`);
+		return { token };
+	}
 
 	const [user] = await db()
 		.select({
@@ -39,7 +60,7 @@ export const loginUser = async (
 		throw new errors.UserServiceError(errors.INVALID_LOGIN_MSG);
 
 	const token = await jwtSign({ uid: user.id });
-	log.info(`generated JWT for user [${dto.nickname}]`);
+	log.info(`generated JWT for [authenticating] user [${dto.nickname}]`);
 	return { token };
 };
 

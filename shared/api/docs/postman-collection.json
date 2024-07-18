@@ -5,7 +5,7 @@
             "description": "Search and favorite trading game cards",
             "item": [
                 {
-                    "id": "8ed9f76d-8cdf-462e-ac19-8e7fda45a4f7",
+                    "id": "7e7f67f2-f744-47ba-972a-7cb196c82217",
                     "name": "Search Cards",
                     "request": {
                         "name": "Search Cards",
@@ -72,7 +72,7 @@
                     },
                     "response": [
                         {
-                            "id": "4552a9b5-fe84-4fa7-99ec-0b92984a88cf",
+                            "id": "baf89999-237b-4b50-ba6f-a53498217edc",
                             "name": "A paged list of cards matching the search term",
                             "originalRequest": {
                                 "url": {
@@ -144,7 +144,7 @@
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "eab05339-a476-4351-814d-64c922f4ce5a",
+                            "id": "139936b7-4c55-4e04-9f66-d9c4a08ac798",
                             "name": "Bad request",
                             "originalRequest": {
                                 "url": {
@@ -211,12 +211,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "61ba8033-2a91-4069-9449-e6f6e1e53cb9",
+                            "id": "1ae272df-8849-4e78-8f62-8ce742024d50",
                             "name": "Too many requests",
                             "originalRequest": {
                                 "url": {
@@ -283,12 +283,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "348b4f99-6721-4d4c-b93d-866a0eb35dc1",
+                            "id": "d63df6d2-37ae-482b-afe0-53fb9d9fcb1d",
                             "name": "Internal server error",
                             "originalRequest": {
                                 "url": {
@@ -355,7 +355,7 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         }
@@ -372,7 +372,7 @@
             "description": "Create & authenticate users",
             "item": [
                 {
-                    "id": "68a6a750-53db-47bd-acbb-3850a0c22dac",
+                    "id": "51203fbb-2db3-4809-88c9-e0192656319b",
                     "name": "Create a user",
                     "request": {
                         "name": "Create a user",
@@ -415,7 +415,7 @@
                     },
                     "response": [
                         {
-                            "id": "c4a62194-24b5-44ed-93a0-0151f41b4299",
+                            "id": "d9be2e89-2f9d-4bd5-ae14-b9dee3b141b2",
                             "name": "The newly created user",
                             "originalRequest": {
                                 "url": {
@@ -463,7 +463,7 @@
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "919cd0cc-be12-45a8-b15a-01f79afd7e96",
+                            "id": "100422b6-fdc2-405c-a949-a89721dea4b0",
                             "name": "Bad request",
                             "originalRequest": {
                                 "url": {
@@ -506,12 +506,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "42d98068-1119-4adf-88e6-15c3e3880d3d",
+                            "id": "23d23929-1304-437c-8d49-4c3138ab5002",
                             "name": "Too many requests",
                             "originalRequest": {
                                 "url": {
@@ -554,12 +554,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "503fccad-77ec-443c-affe-81280251134d",
+                            "id": "b938cc6d-846c-4061-8b9e-1014f5e0f647",
                             "name": "Internal server error",
                             "originalRequest": {
                                 "url": {
@@ -602,7 +602,7 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         }
@@ -613,7 +613,7 @@
                     }
                 },
                 {
-                    "id": "2174e7ff-946c-46ef-8d2a-22402ca2dcdc",
+                    "id": "1ac37f34-34e5-4be7-abfe-d7163a56ac97",
                     "name": "Get the current user",
                     "request": {
                         "name": "Get the current user",
@@ -652,7 +652,7 @@
                     },
                     "response": [
                         {
-                            "id": "f0cdaae9-9507-4232-90f5-dd33511312c1",
+                            "id": "4de26069-6a4c-4660-a095-afe42f13d78e",
                             "name": "The authenticated user",
                             "originalRequest": {
                                 "url": {
@@ -696,7 +696,7 @@
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "6755ba04-6d44-42b9-aba8-e6069df9f609",
+                            "id": "de217a78-98dc-423c-8094-49dcb53db7ee",
                             "name": "Bad request",
                             "originalRequest": {
                                 "url": {
@@ -735,12 +735,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "792bfb65-e599-4d21-944e-1fa41db00d6e",
+                            "id": "a29744a6-bf6c-4bc4-9359-2bd7a5d14c2e",
                             "name": "Too many requests",
                             "originalRequest": {
                                 "url": {
@@ -779,12 +779,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "c959a01b-a53a-4b50-8f0b-6af8bb482b37",
+                            "id": "63d25575-2682-4188-ac9b-1ab56d534c24",
                             "name": "Internal server error",
                             "originalRequest": {
                                 "url": {
@@ -823,7 +823,7 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         }
@@ -834,7 +834,7 @@
                     }
                 },
                 {
-                    "id": "cebe05cf-8866-4b39-8a79-e9e137732732",
+                    "id": "83b0ea74-33ea-48a2-8f38-32d868bf744e",
                     "name": "Add a card to a user's favorites",
                     "request": {
                         "name": "Add a card to a user's favorites",
@@ -898,7 +898,7 @@
                     },
                     "response": [
                         {
-                            "id": "02baeb21-3700-466e-aaa3-b6cb6493be06",
+                            "id": "e64d78ea-cc90-4f5d-a555-b36516e0ee8d",
                             "name": "The card was added to the user's favorites",
                             "originalRequest": {
                                 "url": {
@@ -946,7 +946,7 @@
                             "_postman_previewlanguage": "text"
                         },
                         {
-                            "id": "0c3bb819-ed4f-4961-b6b4-76f0beba2a63",
+                            "id": "4142e76f-7725-4285-a0b1-72ff54de6e18",
                             "name": "Bad request",
                             "originalRequest": {
                                 "url": {
@@ -999,12 +999,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "aff69f29-a5a9-4e6e-9a9f-c8a35b27f296",
+                            "id": "4572730d-ac67-41b4-88b9-a2d0dd624aa4",
                             "name": "Too many requests",
                             "originalRequest": {
                                 "url": {
@@ -1057,12 +1057,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "8f9a900c-a885-43a8-87a6-04d69289d0f5",
+                            "id": "f1d1c42a-93e4-4c0e-ab0f-21b85d7c1940",
                             "name": "Internal server error",
                             "originalRequest": {
                                 "url": {
@@ -1115,7 +1115,7 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         }
@@ -1126,7 +1126,7 @@
                     }
                 },
                 {
-                    "id": "623d7867-cb01-491d-80f4-caa5038cf857",
+                    "id": "238dbc7b-4f63-4ba9-9f01-6d51962b9593",
                     "name": "Remove a card from a user's favorites",
                     "request": {
                         "name": "Remove a card from a user's favorites",
@@ -1190,7 +1190,7 @@
                     },
                     "response": [
                         {
-                            "id": "8eb14492-4c47-4882-afdc-e0bb8496904e",
+                            "id": "53dfd865-0fce-4e5b-a53a-572d1485de31",
                             "name": "The card was removed from the user's favorites",
                             "originalRequest": {
                                 "url": {
@@ -1238,7 +1238,7 @@
                             "_postman_previewlanguage": "text"
                         },
                         {
-                            "id": "dcfbe078-ef65-43b2-a646-b89b287c7947",
+                            "id": "46110a40-bbee-43a0-9206-c7999d17c5f5",
                             "name": "Bad request",
                             "originalRequest": {
                                 "url": {
@@ -1291,12 +1291,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "332ed1c3-2607-46ce-8bc6-4a0ace3d6a51",
+                            "id": "ad491f7c-fb0d-4200-9a54-d9450d85b386",
                             "name": "Too many requests",
                             "originalRequest": {
                                 "url": {
@@ -1349,12 +1349,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "1da1fd2c-2c62-4fac-8f54-be7969a92fa2",
+                            "id": "d8106b27-1ce8-448d-8de5-1995bf9ff0d9",
                             "name": "Internal server error",
                             "originalRequest": {
                                 "url": {
@@ -1407,7 +1407,7 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         }
@@ -1418,7 +1418,7 @@
                     }
                 },
                 {
-                    "id": "d6ca7e8a-96cf-4c66-bba6-c91aa1251d27",
+                    "id": "4a3d1cc0-112c-427c-a4ba-21d2bb45ea30",
                     "name": "Authenticate a user",
                     "request": {
                         "name": "Authenticate a user",
@@ -1449,7 +1449,7 @@
                         "method": "POST",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                            "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\",\n  \"createUser\": false\n}",
                             "options": {
                                 "raw": {
                                     "headerFamily": "json",
@@ -1461,7 +1461,7 @@
                     },
                     "response": [
                         {
-                            "id": "95970fac-03cd-4ac2-8404-d2f07439b9a1",
+                            "id": "c35cf41c-db15-42cb-a5ea-9765779ed137",
                             "name": "A JWT for the authenticated user",
                             "originalRequest": {
                                 "url": {
@@ -1487,7 +1487,7 @@
                                 "method": "POST",
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\",\n  \"createUser\": false\n}",
                                     "options": {
                                         "raw": {
                                             "headerFamily": "json",
@@ -1509,7 +1509,7 @@
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "795df959-895c-4d76-8afc-6531bfe72b37",
+                            "id": "d24a3c03-d48d-4f9a-a4cb-53c46f6f88f1",
                             "name": "Bad request",
                             "originalRequest": {
                                 "url": {
@@ -1535,7 +1535,7 @@
                                 "method": "POST",
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\",\n  \"createUser\": false\n}",
                                     "options": {
                                         "raw": {
                                             "headerFamily": "json",
@@ -1552,12 +1552,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "144ce3c6-aacc-4599-b196-98d0e8f0ba17",
+                            "id": "8d54e669-3576-4cb8-a0c6-5f6c17567036",
                             "name": "Too many requests",
                             "originalRequest": {
                                 "url": {
@@ -1583,7 +1583,7 @@
                                 "method": "POST",
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\",\n  \"createUser\": false\n}",
                                     "options": {
                                         "raw": {
                                             "headerFamily": "json",
@@ -1600,12 +1600,12 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         },
                         {
-                            "id": "f86dd542-7895-47f9-862d-435a4175e5cc",
+                            "id": "f284727f-cd54-4c74-ad3e-c070f22ec999",
                             "name": "Internal server error",
                             "originalRequest": {
                                 "url": {
@@ -1631,7 +1631,7 @@
                                 "method": "POST",
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                                    "raw": "{\n  \"nickname\": \"<string>\",\n  \"password\": \"<string>\",\n  \"createUser\": false\n}",
                                     "options": {
                                         "raw": {
                                             "headerFamily": "json",
@@ -1648,7 +1648,7 @@
                                     "value": "application/json"
                                 }
                             ],
-                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                            "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                             "cookie": [],
                             "_postman_previewlanguage": "json"
                         }
@@ -1661,7 +1661,7 @@
             ]
         },
         {
-            "id": "0877c30a-945b-40f1-9ab3-f730131df170",
+            "id": "c39bd313-9167-4d59-b88f-ff0817168ab0",
             "name": "API Home",
             "request": {
                 "name": "API Home",
@@ -1691,7 +1691,7 @@
             },
             "response": [
                 {
-                    "id": "7bc5ae6d-ea3a-42ce-bc08-f09f99486b82",
+                    "id": "d4d08318-c192-40d0-9b14-f891b61fcfcd",
                     "name": "A basic informational message about the search cards API",
                     "originalRequest": {
                         "url": {
@@ -1726,7 +1726,7 @@
                     "_postman_previewlanguage": "json"
                 },
                 {
-                    "id": "29884197-b6e7-4c3a-8992-1dcdcb46c16d",
+                    "id": "a9762035-d9b2-4ea5-89ef-265c201b0007",
                     "name": "Bad request",
                     "originalRequest": {
                         "url": {
@@ -1756,12 +1756,12 @@
                             "value": "application/json"
                         }
                     ],
-                    "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                    "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                     "cookie": [],
                     "_postman_previewlanguage": "json"
                 },
                 {
-                    "id": "4d856526-23f5-4214-8980-e9f7e1f284f6",
+                    "id": "260dd2e6-94b5-4b9e-98e6-da7752db83e8",
                     "name": "Too many requests",
                     "originalRequest": {
                         "url": {
@@ -1791,12 +1791,12 @@
                             "value": "application/json"
                         }
                     ],
-                    "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                    "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                     "cookie": [],
                     "_postman_previewlanguage": "json"
                 },
                 {
-                    "id": "4e201ff3-6dc5-43f1-a3b7-039de5f02430",
+                    "id": "b9c20564-2060-4776-83f5-c9a4eaf1e19f",
                     "name": "Internal server error",
                     "originalRequest": {
                         "url": {
@@ -1826,7 +1826,7 @@
                             "value": "application/json"
                         }
                     ],
-                    "body": "{\n  \"message\": \"<string>\",\n  \"code\": 659,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                    "body": "{\n  \"message\": \"<string>\",\n  \"code\": 595,\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
                     "cookie": [],
                     "_postman_previewlanguage": "json"
                 }
@@ -1845,7 +1845,7 @@
         }
     ],
     "info": {
-        "_postman_id": "b5f9dbf1-318a-4512-928d-8d5a62e7b513",
+        "_postman_id": "1b564812-360c-48eb-b7c4-98d69b0f8c12",
         "name": "Trading Cards MVP API",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
         "description": {

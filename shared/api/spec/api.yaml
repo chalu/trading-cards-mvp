@@ -475,6 +475,9 @@ components:
           type: string
           minLength: 5
           maxLength: 75
+        createUser:
+          type: boolean
+          default: false
 
     AuthToken:
       type: object

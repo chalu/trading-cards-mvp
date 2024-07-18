@@ -172,6 +172,8 @@ export type components = {
     LoginAttempt: {
       nickname: components["schemas"]["Nickname"];
       password: string;
+      /** @default false */
+      createUser?: boolean;
     };
     AuthToken: {
       token: string;
