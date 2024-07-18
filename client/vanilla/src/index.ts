@@ -21,13 +21,17 @@ type FavStore = {
     [key: string]: Fav | undefined;
 }
 
+let isAuthenticated = false;
+
 const maxPerPage = 175;
 const cards: CardDisplay[] = [];
+const backendAPI = 'http://localhost:8889';
 let [preSearch, postSearch] = [noop, noop];
 
 const domParser = new DOMParser();
 
 const handlePreAndPostSearchAction = (form: HTMLFormElement): SearchActionHandlerTuple => {
+    // biome-ignore lint/complexity/useLiteralKeys: <explanation>
     const txtField = form['term'];
     const btn = form['search-btn'];
     const searchIco = btn.querySelector('.bi-search');
@@ -104,6 +108,7 @@ const attemptSubmit = (event: Event) => {
     event.preventDefault();
 
     const form = event.target as HTMLFormElement;
+    // biome-ignore lint/complexity/useLiteralKeys: <explanation>
     const field = form['term'];
     // TODO can we use the min/max length defined in the API spec?
     if (!field.validity.valid || field.value.trim().length < 3) return;
@@ -116,12 +121,60 @@ const attemptSubmit = (event: Event) => {
     }
 };
 
+const showAuthModal = (callback: () => void) => {
+    const authModal = new Modal('#authModal');
+    const authForm = document.querySelector('#authForm') as HTMLFormElement;
+
+    const handleFormSubmit = async (event: Event) => {
+        event.preventDefault();
+        const formData = new FormData(authForm);
+        const nickname = formData.get('nickname');
+        const password = formData.get('password');
+        const createUser = formData.get('adduser') === 'on';
+
+        try {
+            const response = await fetch(`${backendAPI}/authenticate`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({nickname, password, createUser})
+            });
+            if (!response.ok) throw new Error('Authentication failed');
+
+            const { token } = await response.json();
+            if (token) {
+                localStorage.setItem('jwToken', token);
+                isAuthenticated = true;
+                const authCta = document.querySelector('#authcta') as HTMLAnchorElement;
+                const favsCta = document.querySelector('#favscta') as HTMLAnchorElement;
+                authCta.classList.add('visually-hidden');
+                favsCta.classList.remove('visually-hidden');
+                authModal.hide();
+                authForm.removeEventListener('submit', handleFormSubmit);
+                callback();
+            } else {
+                console.error('Authentication failed', response);
+            }
+        } catch (error) {
+            console.error('Authentication failed', error);
+        }
+    };
+
+    authForm.addEventListener('submit', handleFormSubmit);
+    authModal.show();
+};
+
 const handleFavsToggle = (event: Event) => {
     event.preventDefault();
     const target = event.target as HTMLElement;
     const iconLink = target.closest('[data-game-card]') as HTMLElement;
     if (!iconLink) return;
 
+    if (!isAuthenticated) {
+        showAuthModal(() => handleFavsToggle(event));
+        return;
+    }
+
+    // biome-ignore lint/complexity/useLiteralKeys: <explanation>
     const cardId = iconLink.dataset['gameCard'];
     if (!cardId) return;
 
@@ -172,17 +225,17 @@ const markFavs = () => {
     const favsKeys = Object.keys(favs);
     if (favsKeys.length === 0) return;
 
-    favsKeys.map(
+    const starEls = favsKeys.map(
         (key) => document.querySelector(`[data-game-card='${key}']`)
-    ).forEach((starEl) => {
+    )
+    for (const starEl of starEls) { 
         if (starEl) {
             requestAnimationFrame(() => {
                 starEl.querySelector('.star-outlined')?.classList.add('visually-hidden');
                 starEl.querySelector('.star-filled')?.classList.remove('visually-hidden');
             });
-            
         }
-    });
+    }
 }
 
 const startApp = () => {
@@ -202,6 +255,7 @@ const startApp = () => {
         const favedItemEl = target.closest('[data-faved-item]') as HTMLDivElement;
         if (!favedItemEl) return;
 
+        // biome-ignore lint/complexity/useLiteralKeys: <explanation>
         const cardId = favedItemEl.dataset['favedItem'];
         if (!cardId) return;
 
@@ -213,13 +267,17 @@ const startApp = () => {
 
     const pagerEl = document.querySelector('#pager') as HTMLElement;
     pagerEl.classList.remove('visually-hidden');
-    pagerEl.querySelectorAll('a[href]').forEach((link) => link.addEventListener('click', navigate));
+    for (const link of Array.from(pagerEl.querySelectorAll('a[href]'))) {
+        link.addEventListener('click', navigate);
+    }
     pagerEl.classList.add('visually-hidden');
 
     [preSearch, postSearch] = handlePreAndPostSearchAction(form);
 
     const resultsDiv = document.querySelector('#results') as HTMLDivElement;
     resultsDiv.addEventListener("click", handleFavsToggle);
+
+    checkIfAuthenticated();
 
     // ====================================
     // Only here as a quick and dirty test
@@ -241,7 +299,7 @@ const resultsToCards = (raw: Card[]): CardDisplay[] => {
                         currency,
                         style: 'currency'
                     });
-                    const rawPrice = parseFloat(Object.values(crd.prices)[index] || '0.0');
+                    const rawPrice = Number.parseFloat(Object.values(crd.prices)[index] || '0.0');
                     return currencyFormat.format(rawPrice);
                 });
         }
@@ -305,8 +363,8 @@ const cardToUIElement = (
                         }
                     </li>
                     <li class="list-group-item">Number: ${collector_number || 'N/A'}</li>
-                    <li class="list-group-item text-wrap">Games: ${(games && games.map((game) => capitalize(game)).join(' | ')) || 'N/A'}</li>
-                    <li class="list-group-item">Prices: ${(prices && prices.join(' | ')) || 'N/A'}</li>
+                    <li class="list-group-item text-wrap">Games: ${(games?.map((game) => capitalize(game)).join(' | ')) || 'N/A'}</li>
+                    <li class="list-group-item">Prices: ${(prices?.join(' | ')) || 'N/A'}</li>
                     
                 </ul>
             </div>
@@ -378,10 +436,12 @@ const displayResults = async (results: CardsQueryResponse | APIResponseError) =>
         uiFragment.appendChild(cardItemDoc.body.firstChild as ChildNode);
     }
 
-    data.slice(0, 5).forEach((crd) => {
+    for (const crd of data.slice(0, 5)) {
         const imgEl = document.createElement('img');
-        imgEl.src = crd.image_uris.normal || crd.image_uris.large || 'https://placehold.co/240x335/333/ccc.webp?text=No+Image';
-    });
+        imgEl.src = crd.image_uris.normal 
+            || crd.image_uris.large 
+            || 'https://placehold.co/240x335/333/ccc.webp?text=No+Image';
+    }
 
     requestAnimationFrame(() => {
         resultsDiv.innerHTML = ''
@@ -393,7 +453,43 @@ const displayResults = async (results: CardsQueryResponse | APIResponseError) =>
     markFavs();
 };
 
+function enableAuth() {
+    const authCta = document.querySelector('#authcta') as HTMLAnchorElement;
+    authCta.addEventListener('click', () => {
+        showAuthModal(() => {});
+    });
+}
+
+function checkIfAuthenticated() {
+    const authToken = localStorage.getItem('jwToken');
+    const authCta = document.querySelector('#authcta') as HTMLAnchorElement;
+    const favsCta = document.querySelector('#favscta') as HTMLAnchorElement;
+    if (authToken) {
+        fetch(`${backendAPI}/users/me`, {
+            headers: { 'Authorization': `Bearer ${authToken}` }
+        }).then((response) => {
+            if (response.ok) {
+                isAuthenticated = true;
+            }
+        }).catch(() => {
+            isAuthenticated = false;
+        }).finally(() => {
+            if (isAuthenticated) { 
+                authCta.classList.add('visually-hidden');
+                favsCta.classList.remove('visually-hidden');
+            } else {
+                favsCta.classList.add('visually-hidden');
+                authCta.classList.remove('visually-hidden');
+                enableAuth();
+            }
+        });
+    } else {
+        enableAuth();
+    }
+}
+
 document.addEventListener("DOMContentLoaded", startApp);
+
 
 // Empty state content with only CSS
 // Effective type-safe Express handlers 
