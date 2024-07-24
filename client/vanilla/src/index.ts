@@ -1,32 +1,17 @@
 import { Modal } from 'bootstrap';
 import { formatDistanceToNow } from 'date-fns';
 
-import performSearch, { capitalize, getPagerIndex, noop, wait } from 'client-core';
-import type { Card, CardsQueryResponse, APIResponseError } from '../../../shared/api/sdk/types.js';
+import { ui, api } from 'client-core';
 
-type CardInfo = 'id' | 'name' | 'set_name' | 'rarity';
-type CardDisplay = Pick<Card, CardInfo> & {
-    img: string;
-    prices: string[];
-    games: string[] | undefined;
-    collector_number: string | undefined;
-};
+import type { CardDisplay, Fav, FavStore, FavAction } from 'client-core';
+import type { CardsQueryResponse, APIResponseError } from '../../../shared/api/sdk/types.js';
+
 type SearchActionHandler = () => void;
 type SearchActionHandlerTuple = [SearchActionHandler, SearchActionHandler];
-type Fav = {
-    name: string;
-    when: number;
-};
-type FavStore = {
-    [key: string]: Fav | undefined;
-}
-
-let isAuthenticated = false;
 
 const maxPerPage = 175;
-const cards: CardDisplay[] = [];
-const backendAPI = 'http://localhost:8889';
-let [preSearch, postSearch] = [noop, noop];
+let userIsAuthenticated = false;
+let [preSearch, postSearch] = [ui.noop, ui.noop];
 
 const domParser = new DOMParser();
 
@@ -72,7 +57,7 @@ const navigate = (event: Event) => {
 
         if (searchTerm) {
             preSearch();
-            performSearch(searchTerm, displayResults, href);
+            api.performSearch(searchTerm, displayResults, href);
         } else {
             console.error('Search term not found in pagination links');
         }
@@ -115,7 +100,7 @@ const attemptSubmit = (event: Event) => {
 
     preSearch();
     try {
-        performSearch(field.value, displayResults);
+        api.performSearch(field.value, displayResults);
     } catch (error) {
         console.warn(error);
     }
@@ -133,17 +118,12 @@ const showAuthModal = (callback: () => void) => {
         const createUser = formData.get('adduser') === 'on';
 
         try {
-            const response = await fetch(`${backendAPI}/authenticate`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({nickname, password, createUser})
-            });
-            if (!response.ok) throw new Error('Authentication failed');
-
-            const { token } = await response.json();
-            if (token) {
-                localStorage.setItem('jwToken', token);
-                isAuthenticated = true;
+            const { isAuthenticated } = await api.authenticateUser(`${nickname}`, `${password}`, createUser);
+            userIsAuthenticated = isAuthenticated === true;
+        } catch (error) {
+            console.warn('Authentication failed', error);
+        } finally {
+            if (userIsAuthenticated === true) {
                 const authCta = document.querySelector('#authcta') as HTMLAnchorElement;
                 const favsCta = document.querySelector('#favscta') as HTMLAnchorElement;
                 authCta.classList.add('visually-hidden');
@@ -151,11 +131,7 @@ const showAuthModal = (callback: () => void) => {
                 authModal.hide();
                 authForm.removeEventListener('submit', handleFormSubmit);
                 callback();
-            } else {
-                console.error('Authentication failed', response);
             }
-        } catch (error) {
-            console.error('Authentication failed', error);
         }
     };
 
@@ -163,64 +139,37 @@ const showAuthModal = (callback: () => void) => {
     authModal.show();
 };
 
+const favActionHandlerCallback = (status: FavAction, iconLink: HTMLElement) => {
+    if (status === 'added') {
+        iconLink.querySelector('.star-outlined')?.classList.add('visually-hidden');
+        iconLink.querySelector('.star-filled')?.classList.remove('visually-hidden');
+    } else if (status === 'removed') {
+        iconLink.querySelector('.star-filled')?.classList.add('visually-hidden');
+        iconLink.querySelector('.star-outlined')?.classList.remove('visually-hidden');
+    }
+};
+
 const handleFavsToggle = (event: Event) => {
     event.preventDefault();
-    const target = event.target as HTMLElement;
-    const iconLink = target.closest('[data-game-card]') as HTMLElement;
-    if (!iconLink) return;
 
-    if (!isAuthenticated) {
+    // const { isAuthenticated } = getCurrentUser();
+    if (!userIsAuthenticated) {
         showAuthModal(() => handleFavsToggle(event));
         return;
     }
+
+    const target = event.target as HTMLElement;
+    const iconLink = target.closest('[data-game-card]') as HTMLElement;
+    if (!iconLink) return;
 
     // biome-ignore lint/complexity/useLiteralKeys: <explanation>
     const cardId = iconLink.dataset['gameCard'];
     if (!cardId) return;
 
-    addToFavs(cardId, iconLink);
+    ui.addOrRemoveFav(cardId, (status) => favActionHandlerCallback(status, iconLink));
 };
 
-const addToFavs = (cardId: string, iconLink: HTMLElement) => {
-    const favs: FavStore = JSON.parse(localStorage.getItem('favs') || '{}');
-    if (cardId in favs) {
-        removeFromFavs(cardId, iconLink);
-        return;
-    }
-
-    const card = cards.find((c) => c.id === cardId);
-    if (!card) return;
-
-    favs[cardId] = {
-        name: card.name,
-        when: Date.now()
-    };
-    localStorage.setItem('favs', JSON.stringify(favs));
-
-    if (!iconLink) return;
-
-    requestAnimationFrame(() => {
-        iconLink.querySelector('.star-outlined')?.classList.add('visually-hidden');
-        iconLink.querySelector('.star-filled')?.classList.remove('visually-hidden');
-    });
-};
-
-const removeFromFavs = (cardId: string, iconLink: HTMLElement | undefined) => {
-    const favs: FavStore = JSON.parse(localStorage.getItem('favs') || '{}');
-    if (Object.keys(favs).length === 0) return;
-
-    favs[cardId] = undefined;
-    localStorage.setItem('favs', JSON.stringify(favs));
-
-    if (!iconLink) return;
-
-    requestAnimationFrame(() => {
-        iconLink.querySelector('.star-filled')?.classList.add('visually-hidden');
-        iconLink.querySelector('.star-outlined')?.classList.remove('visually-hidden');
-    });
-};
-
-const markFavs = () => {
+const markFavsOnUI = () => {
     const favs: FavStore = JSON.parse(localStorage.getItem('favs') || '{}');
     const favsKeys = Object.keys(favs);
     if (favsKeys.length === 0) return;
@@ -236,89 +185,6 @@ const markFavs = () => {
             });
         }
     }
-}
-
-const startApp = () => {
-    const form = document.querySelector('#form') as HTMLFormElement;
-    form.addEventListener("submit", attemptSubmit);
-    const searchField = form.querySelector("input[type=text]") as HTMLInputElement;
-    searchField.focus();
-
-    const favsBtn = document.querySelector('#favscta') as HTMLAnchorElement;
-    favsBtn.addEventListener('click', displayFavs);
-
-    const favsList = document.querySelector('#favslist') as HTMLDivElement;
-    favsList.addEventListener('click', (event) => {
-        event.preventDefault();
-
-        const target = event.target as HTMLElement;
-        const favedItemEl = target.closest('[data-faved-item]') as HTMLDivElement;
-        if (!favedItemEl) return;
-
-        // biome-ignore lint/complexity/useLiteralKeys: <explanation>
-        const cardId = favedItemEl.dataset['favedItem'];
-        if (!cardId) return;
-
-        favedItemEl.remove();
-
-        const iconLink = document.querySelector(`[data-game-card='${cardId}']`) as HTMLElement;
-        removeFromFavs(cardId, iconLink);
-    });
-
-    const pagerEl = document.querySelector('#pager') as HTMLElement;
-    pagerEl.classList.remove('visually-hidden');
-    for (const link of Array.from(pagerEl.querySelectorAll('a[href]'))) {
-        link.addEventListener('click', navigate);
-    }
-    pagerEl.classList.add('visually-hidden');
-
-    [preSearch, postSearch] = handlePreAndPostSearchAction(form);
-
-    const resultsDiv = document.querySelector('#results') as HTMLDivElement;
-    resultsDiv.addEventListener("click", handleFavsToggle);
-
-    checkIfAuthenticated();
-
-    // ====================================
-    // Only here as a quick and dirty test
-    // ====================================
-    // for (const count of [1, 2, 3, 4, 5, 6, 7, 8, 9, 20]) {
-    //     performSearch('red', () => {});
-    // }
-};
-
-const resultsToCards = (raw: Card[]): CardDisplay[] => {
-    const justIn: CardDisplay[] = [];
-    for (const crd of raw) {
-        let priceFigures: string[] = [];
-
-        if (crd.prices) {
-            priceFigures = Object.keys(crd.prices)
-                .map((currency, index) => {
-                    const currencyFormat = new Intl.NumberFormat('en-US', {
-                        currency,
-                        style: 'currency'
-                    });
-                    const rawPrice = Number.parseFloat(Object.values(crd.prices)[index] || '0.0');
-                    return currencyFormat.format(rawPrice);
-                });
-        }
-
-        const card = {
-            id: crd.id,
-            name: crd.name,
-            games: crd.games,
-            rarity: capitalize(crd.rarity),
-            prices: priceFigures,
-            set_name: crd.set_name,
-            collector_number: `${crd.collector_number}` || 'N/A', 
-            img: crd.image_uris.normal || crd.image_uris.large || 'https://placehold.co/240x335/333/ccc.webp?text=No+Image'
-        };
-        justIn.push(card);
-    }
-
-    cards.push(...justIn);
-    return justIn;
 }
 
 const favToUIElement = (
@@ -339,7 +205,7 @@ const favToUIElement = (
 
 const cardToUIElement = (
     { id, name, img, games, prices, set_name, rarity, collector_number }: CardDisplay
-) => `
+): string => `
     <div data-card-id="${id}" class="col">
         <div class="card h-100 shadow-sm overflow-hidden">
             <img src="${img}" loading="lazy" alt="${name}" class="card-img-top">
@@ -369,7 +235,7 @@ const cardToUIElement = (
                         <strong>Number:</strong> ${collector_number || 'N/A'}
                     </li>
                     <li class="list-group-item text-wrap text-capitalize d-flex justify-content-between align-items-center">
-                        <strong>Games:</strong> ${(games?.map((game) => capitalize(game)).join(' | ')) || 'N/A'}
+                        <strong>Games:</strong> ${(games?.map((game) => ui.capitalize(game)).join(' | ')) || 'N/A'}
                     </li>
                     <li class="list-group-item text-wrap text-capitalize">
                         <strong>Prices:</strong> ${(prices?.map(price => `<span class='badge bg-secondary'>${price}</span>`).join(' ')) || 'N/A'}
@@ -411,7 +277,7 @@ const updatePager = (
         }
     
         if (!currentNav) return;
-        const { currentPage, totalPages } = getPagerIndex(total, maxPerPage, {next, previous});
+        const { currentPage, totalPages } = ui.getPagerIndex(total, maxPerPage, {next, previous});
         (currentNav.querySelector('a') as HTMLAnchorElement).textContent = `${currentPage} / ${totalPages}`;
     });
 };
@@ -419,7 +285,7 @@ const updatePager = (
 const displayResults = async (results: CardsQueryResponse | APIResponseError) => {
     postSearch();
     if ('errors' in results) {
-        console.error('API response error', results);
+        console.warn('API response error', results);
         return;
     }
 
@@ -427,7 +293,7 @@ const displayResults = async (results: CardsQueryResponse | APIResponseError) =>
     const resultsDiv = document.querySelector('#results') as HTMLDivElement;
     const uiFragment = document.createDocumentFragment();
 
-    const justIn = resultsToCards(data);
+    const justIn = ui.resultsToCards(data);
     for (const crd of justIn) {
         const cardUIStr = cardToUIElement({
             id: crd.id, 
@@ -436,7 +302,7 @@ const displayResults = async (results: CardsQueryResponse | APIResponseError) =>
             games: crd.games,
             prices: crd.prices,
             set_name: crd.set_name,
-            rarity: capitalize(crd.rarity),
+            rarity: ui.capitalize(crd.rarity),
             collector_number: `${crd.collector_number}` || 'N/A'
         });
 
@@ -444,6 +310,7 @@ const displayResults = async (results: CardsQueryResponse | APIResponseError) =>
         uiFragment.appendChild(cardItemDoc.body.firstChild as ChildNode);
     }
 
+    // load the first 5 card images
     for (const crd of data.slice(0, 5)) {
         const imgEl = document.createElement('img');
         imgEl.src = crd.image_uris.normal 
@@ -457,58 +324,87 @@ const displayResults = async (results: CardsQueryResponse | APIResponseError) =>
     });
     updatePager(next, previous, total);
 
-    await wait({until: 1000});
-    markFavs();
+    await ui.wait({until: 1000});
+    markFavsOnUI();
 };
 
-function enableAuth() {
+const enableAuth = () => {
     const authCta = document.querySelector('#authcta') as HTMLAnchorElement;
     authCta.addEventListener('click', (event) => {
         event.preventDefault();
-        showAuthModal(() => {});
+        showAuthModal(ui.noop);
     });
 }
 
-function checkIfAuthenticated() {
-    const authToken = localStorage.getItem('jwToken');
+const checkIfAuthenticated = async () => {
     const authCta = document.querySelector('#authcta') as HTMLAnchorElement;
     const favsCta = document.querySelector('#favscta') as HTMLAnchorElement;
-    if (authToken) {
-        fetch(`${backendAPI}/users/me`, {
-            headers: { 'Authorization': `Bearer ${authToken}` }
-        }).then((response) => {
-            if (response.ok) {
-                isAuthenticated = true;
-            }
-        }).catch(() => {
-            isAuthenticated = false;
-        }).finally(() => {
-            if (isAuthenticated) { 
-                authCta.classList.add('visually-hidden');
-                favsCta.classList.remove('visually-hidden');
-            } else {
-                favsCta.classList.add('visually-hidden');
-                authCta.classList.remove('visually-hidden');
-                enableAuth();
-            }
-        });
-    } else {
-        enableAuth();
+
+    try {
+        const data = await api.fetchCurrentUserData();
+        const { isAuthenticated } = data || {};
+        userIsAuthenticated = isAuthenticated === true;
+    } catch (error) {
+        console.warn('fetch user data failed', error);
+    } finally {
+        if (userIsAuthenticated === true) { 
+            authCta.classList.add('visually-hidden');
+            favsCta.classList.remove('visually-hidden');
+        } else {
+            favsCta.classList.add('visually-hidden');
+            authCta.classList.remove('visually-hidden');
+            enableAuth();
+        }
     }
 }
 
+const startApp = () => {
+    const form = document.querySelector('#form') as HTMLFormElement;
+    form.addEventListener("submit", attemptSubmit);
+    const searchField = form.querySelector("input[type=text]") as HTMLInputElement;
+    searchField.focus();
+
+    const favsBtn = document.querySelector('#favscta') as HTMLAnchorElement;
+    favsBtn.addEventListener('click', displayFavs);
+
+    const favsList = document.querySelector('#favslist') as HTMLDivElement;
+    favsList.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const target = event.target as HTMLElement;
+        const favedItemEl = target.closest('[data-faved-item]') as HTMLDivElement;
+        if (!favedItemEl) return;
+
+        // biome-ignore lint/complexity/useLiteralKeys: <explanation>
+        const cardId = favedItemEl.dataset['favedItem'];
+        if (!cardId) return;
+
+        favedItemEl.remove();
+
+        const iconLink = document.querySelector(`[data-game-card='${cardId}']`) as HTMLElement;
+        ui.addOrRemoveFav(cardId, (status) => favActionHandlerCallback(status, iconLink));
+    });
+
+    const pagerEl = document.querySelector('#pager') as HTMLElement;
+    pagerEl.classList.remove('visually-hidden');
+    for (const link of Array.from(pagerEl.querySelectorAll('a[href]'))) {
+        link.addEventListener('click', navigate);
+    }
+    pagerEl.classList.add('visually-hidden');
+
+    [preSearch, postSearch] = handlePreAndPostSearchAction(form);
+
+    const resultsDiv = document.querySelector('#results') as HTMLDivElement;
+    resultsDiv.addEventListener("click", handleFavsToggle);
+
+    checkIfAuthenticated();
+
+    // ====================================
+    // Only here as a quick and dirty test
+    // ====================================
+    // for (const count of [1, 2, 3, 4, 5, 6, 7, 8, 9, 20]) {
+    //     api.performSearch('red', () => {});
+    // }
+};
+
 document.addEventListener("DOMContentLoaded", startApp);
-
-
-// Empty state content with only CSS
-// Effective type-safe Express handlers 
-// Lazy loading images with loading="lazy" attribute
-// Use the browser's network pref/setting to load different image resolutions
-// 
-
-// https://github.com/gunn/pure-store/
-// https://mobx-state-tree.js.org/intro/welcome
-// https://github.com/tinyplex/tinybase
-// https://github.com/LegendApp/legend-state
-
-// https://www.youtube.com/watch?v=ncaiRMdgy4Q
