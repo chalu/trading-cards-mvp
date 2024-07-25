@@ -1,10 +1,10 @@
 import { Modal } from 'bootstrap';
 import { formatDistanceToNow } from 'date-fns';
 
-import { ui, api } from 'client-core';
+import { ui, api, store } from 'client-core';
 
-import type { CardDisplay, Fav, FavStore, FavAction } from 'client-core';
-import type { CardsQueryResponse, APIResponseError } from '../../../shared/api/sdk/types.js';
+import type { CardDisplay, Fav, FavAction } from 'client-core';
+import type { CardsQueryResponse } from '../../../shared/api/sdk/types.js';
 
 type SearchActionHandler = () => void;
 type SearchActionHandlerTuple = [SearchActionHandler, SearchActionHandler];
@@ -67,7 +67,7 @@ const navigate = (event: Event) => {
 const displayFavs = (event: Event) => {
     event.preventDefault();
 
-    const favs: FavStore = JSON.parse(localStorage.getItem('favs') || '{}');
+    const favs = store.getFavorites();
     const favIds = Object.keys(favs);
     if (favIds.length === 0) return;
 
@@ -170,7 +170,7 @@ const handleFavsToggle = (event: Event) => {
 };
 
 const markFavsOnUI = () => {
-    const favs: FavStore = JSON.parse(localStorage.getItem('favs') || '{}');
+    const favs = store.getFavorites();
     const favsKeys = Object.keys(favs);
     if (favsKeys.length === 0) return;
 
@@ -282,14 +282,14 @@ const updatePager = (
     });
 };
 
-const displayResults = async (results: CardsQueryResponse | APIResponseError) => {
+const displayResults = async (results: CardsQueryResponse | undefined) => {
     postSearch();
-    if ('errors' in results) {
-        console.warn('API response error', results);
+    if (!results) {
+        console.warn('no search results from backend');
         return;
     }
 
-    const { total, next, previous, data } = results as CardsQueryResponse;
+    const { total, next, previous, data } = results;
     const resultsDiv = document.querySelector('#results') as HTMLDivElement;
     const uiFragment = document.createDocumentFragment();
 
