@@ -1,8 +1,8 @@
 import type { Card } from "../../../api/sdk/types.js";
-import type { CardDisplay, FavStore, FavAction } from "./types.js";
+import type { CardDisplay, FavList, FavAction } from "./types.js";
 
 import * as api from "./api.js";
-import { getCards, addCards } from "./store.js";
+import * as store from "./store.js";
 
 export const wait = async ({ until } = { until: 1000 }) =>
 	new Promise<void>((resolve) => {
@@ -97,18 +97,18 @@ export const resultsToCards = (raw: Card[]): CardDisplay[] => {
         };
         justIn.push(card);
     }
-	addCards(...justIn);
+	store.addCards(...justIn);
     return justIn;
 };
 
 export const addOrRemoveFav = async (cardId: string, callback?: (status: FavAction) => void) => {
-    const favs: FavStore = JSON.parse(localStorage.getItem('favs') || '{}');
+    const favs: FavList = JSON.parse(localStorage.getItem('favs') || '{}');
     if (cardId in favs) {
         removeFromFavs(cardId, callback);
         return;
     }
 	
-    const card = getCards().find((c) => c.id === cardId);
+    const card = store.getCards().find((c) => c.id === cardId);
     if (!card) return;
 
 	const added = await api.addCardToUsersFavs(cardId);
@@ -118,6 +118,7 @@ export const addOrRemoveFav = async (cardId: string, callback?: (status: FavActi
 			name: card.name,
 			when: Date.now(),
 		};
+		store.updateCurrentUser({favs});
 		localStorage.setItem("favs", JSON.stringify(favs));
 		if (!callback) return;
 		callback('added');
@@ -125,16 +126,17 @@ export const addOrRemoveFav = async (cardId: string, callback?: (status: FavActi
 };
 
 export const removeFromFavs = async (cardId: string, callback?: (status: FavAction) => void) => {
-	const favs: FavStore = JSON.parse(localStorage.getItem("favs") || "{}");
+	const favs: FavList = JSON.parse(localStorage.getItem("favs") || "{}");
 	if (Object.keys(favs).length === 0) return;
 	
-	const card = getCards().find((c) => c.id === cardId);
+	const card = store.getCards().find((c) => c.id === cardId);
 	if (!card) return;	
 	
 	const removed = await api.removeCardFromUsersFavs(cardId);
 	
 	if (removed) {
 		delete favs[cardId];
+		store.updateCurrentUser({favs});
 		localStorage.setItem("favs", JSON.stringify(favs));
 		if (!callback) return;
 		callback('removed');

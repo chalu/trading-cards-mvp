@@ -4,4 +4,4 @@
 export * from "./types.js";
 export * as ui from "./ui.js";
 export * as api from "./api.js";
-export { getCurrentUser } from "./store.js";
+export * as store from "./store.js";

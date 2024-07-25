@@ -1,5 +1,4 @@
 import type {
-	APIResponseError,
 	CardsQueryResponse,
 } from "../../../api/sdk/types.js";
 
@@ -8,7 +7,7 @@ import { settle, wait } from "./ui.js";
 
 import type { AppUser } from "./types.js";
 
-type APIResponse = APIResponseError | CardsQueryResponse;
+type APIResponse = CardsQueryResponse | undefined;
 type APIInvokerFunction = () => Promise<APIResponse>;
 type ResultsReceiverFunction = (results: APIResponse) => void;
 
@@ -23,26 +22,33 @@ const apiBase = "http://localhost:8889";
 
 const searchForTerm =
 	(term: string, pagedTo = ""): APIInvokerFunction =>
-	async (): Promise<APIResponse> => {
+	async (): Promise<CardsQueryResponse> => {
 		let endpoint = `/search?term=${term}`;
 		if (pagedTo !== "") {
 			const url = new URL(pagedTo, `${apiBase}`);
 			endpoint = `/search${url.search}`;
 		}
 
-		// Bubble any error over
 		const resp = await fetch(`${apiBase}${endpoint}`);
+		if (!resp.ok) throw new Error("Failed to fetch search results", {cause: resp});
+
 		return resp.json();
 	};
 
 const issueSearch = async (
 	apiCall: APIInvokerFunction,
-): Promise<APIResponse> => {
-	APICallStatus = CallStatusInFlight;
-	console.log("Calling backend API ...");
-	const data = await apiCall();
-	console.log("Done!");
-	APICallStatus = CallStatusReady;
+): Promise<CardsQueryResponse | undefined> => {
+	let data: CardsQueryResponse | undefined = undefined;
+	try {
+		console.log("Calling backend API ...");
+		APICallStatus = CallStatusInFlight;
+		data = await apiCall();
+		APICallStatus = CallStatusReady;
+		console.log("Backend responded!");
+	} catch (e) {
+		console.warn(e);
+	} 
+
 	return data;
 };
 

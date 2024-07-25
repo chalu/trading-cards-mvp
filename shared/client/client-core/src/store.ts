@@ -6,12 +6,14 @@ let state: AppState = {
     currentUser: {
         isAuthenticated: false,
         id: localStorage.getItem('userId') || undefined,
+        favs: JSON.parse(localStorage.getItem('favs') || '{}'),
         authToken: localStorage.getItem('jwToken') || undefined
     }
 };
 
 export const getCards = () => state.cards;
 export const getCurrentUser = () => state.currentUser;
+export const getFavorites = () => state.currentUser.favs;
 
 export const addCards = (...recents: CardDisplay[]) => {
     state = produce(state, (draft) => {

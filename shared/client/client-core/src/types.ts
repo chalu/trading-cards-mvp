@@ -15,15 +15,16 @@ export type Fav = {
 
 export type FavAction = 'added' | 'removed';
 
-export type FavStore = {
+export type FavList = {
     [key: string]: Fav | undefined;
 };
 
 export type AppUser = {
-        id?: string | undefined;
-        authToken: string | undefined;
-        isAuthenticated: boolean | false;
-    };
+    favs: FavList;
+    id?: string | undefined;
+    authToken: string | undefined;
+    isAuthenticated: boolean | false;
+};
 
 export type AppState = {
     readonly cards: CardDisplay[];
